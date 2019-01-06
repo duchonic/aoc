@@ -1,0 +1,19 @@
+banr 0
+eqrr 1
+setr 2
+eqir 3
+  bori 4
+muli 5
+bani 6
+borr 7
+gtir 8
+gtrr 9
+addi 10
+     11
+     12
+addr 13
+mulr 14
+seti 15
+
+gtri
+eqri

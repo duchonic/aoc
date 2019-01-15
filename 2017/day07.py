@@ -1896,13 +1896,13 @@ def Circus(mData):
     circus = dict()
     childs = dict()
     parents = dict()
-    
+
     for line in mData:
         wrData = line.replace(',','').replace('(','').replace(')','').split()
-        
+
         circus.setdefault(wrData[0])
         circus[wrData[0]] = {'id':wrData[1], 'childs': list()}
-        
+
         try:
             for i in wrData[3:]:
                 circus[wrData[0]]['childs'].append(i)
@@ -1910,25 +1910,85 @@ def Circus(mData):
                 childs[i] = 1
         except:
             pass
-        
+
     return circus, parents, childs
 
 res, parent, child = Circus(data)
 pp = pprint.PrettyPrinter(indent=4)
-pp.pprint(res)
+#pp.pprint(res)
 #pp.pprint(child)
 
 sums = dict()
 for item in res:
     sums.setdefault(item)
     sums[item] = 0
-    
+
     for childs in res[item]['childs']:
+        #print(childs, item, int(res[item]['id']) )
         sums[item] += int(res[item]['id'])
-        
 
 for item in sums:
     if sums.get(item):
+        #print(item, sums.get(item))
         pass
-        print(item, sums.get(item))
-    
+
+weigth = dict()
+
+for item1 in res['bpvhwhh']['childs']:
+    #print('--', item1)
+    for item2 in res[item1]['childs']:
+        #print('----',item2)
+        for item3 in res[item2]['childs']:
+            #print('------',item3)
+            for item4 in res[item3]['childs']:
+                weigth[item4] = int(res[item4]['id'])
+                for item5 in res[item4]['childs']:
+                    print('----------',item5, 'res:', res[item5]['id'])
+                    weigth[item4] += int(res[item5]['id'])
+                print('--------',item4, weigth[item4])
+for item1 in res['bpvhwhh']['childs']:
+    #print('--', item1)
+    for item2 in res[item1]['childs']:
+        #print('----',item2)
+        for item3 in res[item2]['childs']:
+            weigth[item3] = int(res[item3]['id'])
+            oldValue = 0
+            for item4 in res[item3]['childs']:
+                if oldValue != int( weigth[item4] ) and oldValue != 0:
+                    print('--------',item4, weigth[item4])
+                    print("*********** not equyal ************")
+                    assert 0
+                oldValue = int(weigth[item4])
+                print('--------',item4, weigth[item4])
+                weigth[item3] += int( weigth[item4] )
+            print('------',item3, weigth[item3])
+for item1 in res['bpvhwhh']['childs']:
+    #print('--', item1)
+    for item2 in res[item1]['childs']:
+        weigth[item2] = int(res[item2]['id'])
+        oldValue = 0
+        for item3 in res[item2]['childs']:
+
+            if oldValue != int(weigth[item3]) and oldValue != 0:
+                print('------',item3, weigth[item3])
+                print("*********** not equyal ************")
+                assert 0
+            oldValue = int(weigth[item3])
+
+            print('------',item3, weigth[item3])
+            weigth[item2] += int(weigth[item3])
+        print('----',item2, weigth[item2])
+
+for item1 in res['bpvhwhh']['childs']:
+    weigth[item1] = int(res[item1]['id'])
+    for item2 in res[item1]['childs']:
+        #print('----',item2, weigth[item2]  )
+        weigth[item1] += int(weigth[item2])
+    print('--', item1, weigth[item1])
+
+#pp.pprint(weigth)
+
+# childs of bpvhwhh are
+#    lzfgxlb, fzclaow, kfdxxb, xnmjpa, rilgrr, fvrrpo, zcmlgn
+# solution 1 is bpvhwhh
+# tulwp (264) is 8 to high!!! solution nr 2 is 256

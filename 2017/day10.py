@@ -26,7 +26,7 @@ def hashit(data, len):
 testdata = [i for i in range(256)]
 testinput = [227,169,3,166,246,201,0,47,1,255,2,254,96,3,97,144]
 
-for i in range(len(testinput)):
+for i in range( len(testinput) ):
     testdata, indexTot = hashit(testdata, testinput[i])
     print(testdata, indexTot%5)
 

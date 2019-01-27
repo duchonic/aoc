@@ -19,17 +19,20 @@ def hashit(data, len):
     except AttributeError:
         hashit.indexTotal = mDataIndex
 
-    mData = mData[ mDataIndex : mDataIndex+256 ]
+    mData = mData[mDataIndex:mDataIndex+256]
 
     return mData, hashit.indexTotal
 
-testdata = [i for i in range(256)]
-testinput = [227,169,3,166,246,201,0,47,1,255,2,254,96,3,97,144]
 
-for i in range( len(testinput) ):
-    testdata, indexTot = hashit(testdata, testinput[i])
-    print(testdata, indexTot%5)
+dataOutput = [i for i in range(256)]
+dataInput = [227, 169, 3, 166, 246, 201, 0, 47, 1, 255, 2, 254, 96, 3, 97, 144]
 
-testdata = testdata * 2
-testdata = testdata[256-indexTot%256:256-indexTot%256+256]
-print('result part 1:',testdata[0]*testdata[1])
+
+for i in range(len(dataInput)):
+    dataOutput, indexTot = hashit(dataOutput, dataInput[i])
+    print(dataOutput, indexTot % 5)
+
+dataOutput = dataOutput * 2
+dataOutput = dataOutput[256-indexTot % 256:256-indexTot % 256+256]
+
+print('result part 1:', dataOutput[0]*dataOutput[1])

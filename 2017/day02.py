@@ -13,8 +13,9 @@ def calcChecksum(data):
                 min_ = value
             if value > max_:
                 max_ = value
-        checksum += (max_ - min_)        
+        checksum += (max_ - min_)
     return checksum
+
 
 def calcChecksum2(data):
     '''
@@ -27,10 +28,10 @@ def calcChecksum2(data):
             for second in list(line.split()):
                 second = int(second)
                 if first != second:
-                    if first%second == 0:
+                    if first % second == 0:
                         checksum += first/second
                         break
-    return checksum                        
+    return checksum
 
 data_test = """5 1 9 5
 7 5 3

@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include <sstream>
 #include <vector>
@@ -21,11 +22,15 @@ std::vector<std::string> split(const std::string &s, char delim) {
     return elems;
 }
 
-//Note that this solution does not skip empty tokens, so the following will find 4 items, one of which is empty:
 int main(){
   std::vector<std::string> x = split("one:two:three", ':');
 
+  std::chrono::milliseconds test = 12;
+
+  int time_ms = 30;
+  int time_sec = 33;
+
   std::cout << "x[0]=" << x[0] << '\n';
   std::cout << "x[1]=" << x[1] << '\n';
-
+  std::cout << "time_ms: " <<  time_ms << " time_sec: " << time_sec << '\n';
 }

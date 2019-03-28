@@ -3,7 +3,6 @@ import json
 with open('day12.data') as readfile:
     data = json.load(readfile)
 
-
 def checkType(data):
     if type(data) == list:
         print('list', data)
@@ -15,17 +14,42 @@ def checkType(data):
         print('unknown', type(data))
 
 
-for key, value in data.items():
+mList = list()
+mDict = dict()
 
-    if type(value) == list:
-        print(key,  type(value), value)
+for key, value in data.items():
+    # if type(value) == list:
+    #     print(key,  type(value), value)
+    # if type(value) == dict:
+    #     print(key,  type(value), value)
+    #     for key, value in value.items():
+    #         print(key, value)
+    #print(key, type(value), value)
+
     if type(value) == dict:
-        print(key,  type(value), value)
-        for key, value in value.items():
-            print(key, value)
+        mDict[key] = value
+    elif type(value) == list:
+        mList.append(value)
+    else:
+        assert 0
+
+
+def printDict(printDict):
+    for key in printDict:
+        print("dict(key): ", key, printDict[key])
+
+
+def printList(printList):
+    for index, item in enumerate(printList):
+        print("list[", index, "]:", item)
+
+
+printDict(mDict)
+printList(mList)
+
+
 '''
 --- Part Two ---
-
 Uh oh - the Accounting-Elves have realized that they double-counted everything
 red.
 

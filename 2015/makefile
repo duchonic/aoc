@@ -1,6 +1,6 @@
 all:
-	g++ -std=c++11 day16.cpp -o day16
-	./day16
-	rm day16
+	g++ -std=c++11 test.cpp -o test
+	./test
+	rm test
 
 

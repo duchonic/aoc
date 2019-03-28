@@ -60,12 +60,13 @@ def nextPassword(currentPassword):
 
     while checkPassword(nextPassword) == False:
         nextPassword = incPassword(nextPassword)
-        print(nextPassword)
+        #print(nextPassword)
     print(nextPassword)
     return nextPassword
 
 
-assert nextPassword('abcdefgh') == 'abcdffaa'
-assert nextPassword('ghijklmn') == 'ghjaabcc'
+#assert nextPassword('abcdefgh') == 'abcdffaa'
+#assert nextPassword('ghijklmn') == 'ghjaabcc'
 
 print('result part1:', nextPassword('hxbxwxba'))
+print('result part2:', nextPassword('hxbxxzaa'))

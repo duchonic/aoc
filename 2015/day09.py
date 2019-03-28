@@ -29,15 +29,17 @@ Straylight to Tristram = 27
 Straylight to Arbre = 81
 Tristram to Arbre = 90""".split('\n')
 
+
 destinations = set()
 routes = list()
 
 for line in data:
     dest = line.split()
+    print(dest)
     destinations.add(dest[0])
+    destinations.add(dest[2])
     routes.append(dest[2]+' to '+dest[0]+' = '+dest[4])
     routes.append(dest[0]+' to '+dest[2]+' = '+dest[4])
-
 
 def calcRoute(route):
     kilometer = 0
@@ -46,6 +48,7 @@ def calcRoute(route):
             try:
                 if route[index] in line and route[index+1] in line:
                     kilometer += int(line.split()[4])
+                    #print(line, ' ', kilometer)
             except IndexError:
                 pass
     return kilometer
@@ -56,7 +59,7 @@ test = list(destinations)
 minimum = 1000
 maximum = 0
 
-for _ in range(1_000_00):
+for _ in range(100_000):
     shuffle(test)
     value = calcRoute(test)
 

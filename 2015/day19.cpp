@@ -29,12 +29,17 @@ int main(){
       std::cout << "molekule: " << line << '\n';
       orginalMolekuel += line;
     }
-    std::cout << orginalMolekuel << '\n';
+    std::cout << "orginalMolekuel:" << orginalMolekuel << '\n';
 
     for (auto x: combis){
       std::cout << x.first << " => " << x.second << '\n';
-      newMolekus.insert(orginalMolekuel+x.first+x.second);
+      std::string actMole = orginalMolekuel;
+
+      actMole[actMole.find(x.first)] = x.second[0];
+      std::cout << "actMole:" << actMole << '\n';
+      newMolekus.insert( actMole );
     }
+
     for (auto x: newMolekus){
       std::cout << x << '\n';
     }

@@ -23,10 +23,9 @@ int main(){
 
 	std::vector<inputType> v;
 	
-
 	std::cout << "aoc 2016 day03" << std::endl;
 	
-	auto testfile = std::ifstream("../test.txt");
+	auto testfile = std::ifstream("../data.txt");
 	assert(testfile.is_open());
 
 	for(inputType test; testfile >> test;){
@@ -36,29 +35,105 @@ int main(){
 	std::cout << "test:" << std::endl;
 	int works = 0;
 	int fails = 0;
+	int threeSet = 0;
+
+	std::multiset<int> first;
+	std::multiset<int> second;
+	std::multiset<int> third;
+
 	for(auto test: v){
 
-		std::multiset<int> triangle{test.a, test.b, test.c};
-		std::cout << "new triangle: ";
-		int count = 0;
-		int sumOfSmalls = 0;
-		for(int i: triangle){
-			std::cout << i << " ";
+		switch (threeSet++){
+			case 0: {
 
-			if(count++ <= 1){
-				sumOfSmalls+=i;
+				first.clear();
+				second.clear();
+				third.clear();
+
+				first.insert(test.a);
+				second.insert(test.b);
+				third.insert(test.c);
+				break;
 			}
-			else if(sumOfSmalls <= i){
-				std::cout << "doesnt work" << std::endl;
-				fails++;
+			case 1: {
+				first.insert(test.a);
+				second.insert(test.b);
+				third.insert(test.c);
+				break;
 			}
-			else{
-				std::cout << "works" << std::endl;
-				works++;
+			case 2: {
+				first.insert(test.a);
+				second.insert(test.b);
+				third.insert(test.c);
+			
+				int count = 0;
+				int sumOfSmalls = 0;
+				for (int i : first) {
+					std::cout << i << " ";
+
+					if (count++ <= 1) {
+						sumOfSmalls += i;
+					}
+					else if (sumOfSmalls <= i) {
+						std::cout << "doesnt work" << std::endl;
+						fails++;
+					}
+					else {
+						std::cout << "works" << std::endl;
+						works++;
+					}
+				}
+
+				count = 0;
+				sumOfSmalls = 0;
+				for (int i : second) {
+					std::cout << i << " ";
+
+					if (count++ <= 1) {
+						sumOfSmalls += i;
+					}
+					else if (sumOfSmalls <= i) {
+						std::cout << "doesnt work" << std::endl;
+						fails++;
+					}
+					else {
+						std::cout << "works" << std::endl;
+						works++;
+					}
+				}
+
+				count = 0;
+				sumOfSmalls = 0;
+				for (int i : third) {
+					std::cout << i << " ";
+
+					if (count++ <= 1) {
+						sumOfSmalls += i;
+					}
+					else if (sumOfSmalls <= i) {
+						std::cout << "doesnt work" << std::endl;
+						fails++;
+					}
+					else {
+						std::cout << "works" << std::endl;
+						works++;
+					}
+				}
+				threeSet = 0;
+				break;
+			}
+			default: {
+				assert(0);
+				break;
+
+
 			}
 		}
+		
 	}
 	std::cout << "works:" << works << " fails:" << fails << std::endl;
+
+	return 0;
 
 	v.clear();
 	auto file = std::ifstream("../data.txt");

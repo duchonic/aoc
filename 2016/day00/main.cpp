@@ -6,48 +6,52 @@
 #include <cassert>
 #include <cmath>
 
-// read file
+#include "log.h"
+
+/**
+* @brief process data in file with this struct
+*
+*/
 struct inputType{
 	std::string command;
-	int nr;
 	friend std::istream& operator>>(std::istream& is, inputType& info){
 		is >> info.command;
-		is >> info.nr;
 		return is;
 	}
 };
 
-int main(){
+/**
+* @brief program that process some data from the file
+*        mostly called twice with test.txt and data.txt
+*
+*/
+void runProgram(std::string fileName) {
 
 	std::vector<inputType> v;
 
-	std::cout << "aoc 2016 dayxy" << std::endl;
-	
-	auto testfile = std::ifstream("../test.txt");
-	assert(testfile.is_open());
-
-	for(inputType test; testfile >> test;){
-		v.push_back(test);
-	}
-
-	std::cout << "test:" << std::endl;
-	for(auto test: v){
-		std::cout << test.command << std::endl;
-	}
-
-	v.clear();
-	auto file = std::ifstream("../data.txt");
+	auto file = std::ifstream(fileName);
 	assert(file.is_open());
-	
-	for(inputType data; file >> data;){
+
+	for (inputType data; file >> data;) {
 		v.push_back(data);
 	}
 
-	std::cout << "data:" << std::endl;
-	for(auto data: v){
-		std::cout << data.command << " nr:" << data.nr << std::endl;
+	DEBUG_LOG("data from " << fileName);
+	for (auto data : v) {
+		INFO_LOG(data.command);
 	}
-	
+}
+
+/**
+* @brief the mainloop
+* 
+*/
+int main(){
+
+	//std::cout << "aoc 2016 dayxy" << std::endl;
+	INFO_LOG("aoc 2016 day xy");
+	runProgram("../test.txt");
+	runProgram("../data.txt");
 
 	return 0;
 }

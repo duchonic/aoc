@@ -1,0 +1,10 @@
+^D:\WORK\SOURCE\AOC\2016\DAY06\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/work/source/aoc/2016/day06 -BD:/work/source/aoc/2016/day06/buildWin --check-stamp-file D:/work/source/aoc/2016/day06/buildWin/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -26,14 +26,16 @@
 #define BUILD_DATE_AND_TIME  __DATE__ << ' ' << __TIME__
 #define CURRENT_TIME getCurrentMSTimeString()
 
-#define BUILD_LOG()					std::cout << blue << CURRENT_TIME << " [build]: " << BUILD_DATE_AND_TIME << white << '\n'
-#define STATE_LOG(stuff)			std::cout << blue << CURRENT_TIME << " [state]: " << white << stuff << '\n'
-#define INFO_LOG(stuff)				std::cout << blue << CURRENT_TIME << " [info]: " << FILENAME_AND_LINE << white << stuff << '\n'
-#define WARNING_LOG(stuff)			std::cout << red  << CURRENT_TIME << " [warning]: " << FILENAME_AND_LINE << white << stuff << '\n'
-#define ERROR_LOG(stuff)			std::cout << red  << CURRENT_TIME << " [error]: " << FILENAME_AND_LINE << white << stuff << '\n'
-#define DEBUG_LOG(stuff)			std::cout << yellow << CURRENT_TIME << " [debug]: " << FILENAME_AND_LINE << white << stuff << '\n'
-#define DEBUG_NDU(stuff)			std::cout << blackOnWhite << CURRENT_TIME << " [debug]: " << FILENAME_AND_LINE << white << stuff << '\n'
-#define DEBUG_SPECTRUM_LOG(stuff)	std::cout << yellow << CURRENT_TIME << " [debugSpectrum]: " << FILENAME_AND_LINE << white << stuff << '\n'
+
+
+#define BUILD_LOG()				std::cout << CURRENT_TIME << " [build]: " << BUILD_DATE_AND_TIME << '\n'
+#define STATE_LOG(stuff)			std::cout << CURRENT_TIME << " [state]: " << stuff << '\n'
+#define INFO_LOG(stuff)				std::cout << CURRENT_TIME << " [info]: " << FILENAME_AND_LINE << stuff << '\n'
+#define WARNING_LOG(stuff)			std::cout << CURRENT_TIME << " [warning]: " << FILENAME_AND_LINE << stuff << '\n'
+#define ERROR_LOG(stuff)			std::cout << CURRENT_TIME << " [error]: " << FILENAME_AND_LINE << stuff << '\n'
+#define DEBUG_LOG(stuff)			std::cout << CURRENT_TIME << " [debug]: " << FILENAME_AND_LINE << stuff << '\n'
+#define DEBUG_NDU(stuff)			std::cout << CURRENT_TIME << " [debug]: " << FILENAME_AND_LINE << stuff << '\n'
+#define DEBUG_SPECTRUM_LOG(stuff)	     	std::cout << CURRENT_TIME << " [debugSpectrum]: " << FILENAME_AND_LINE << stuff << '\n'
 
 
 std::string getCurrentMSTimeString()

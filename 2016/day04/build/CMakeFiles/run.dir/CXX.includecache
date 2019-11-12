@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/duchonic/Documents/aoc/2016/day04/json.h
+/Users/duchonic/Documents/work/aoc/2016/day04/json.h
 algorithm
 -
 cassert
@@ -340,7 +340,7 @@ limits
 type_traits
 -
 
-/home/duchonic/Documents/aoc/2016/day04/log.h
+/Users/duchonic/Documents/work/aoc/2016/day04/log.h
 iostream
 -
 string
@@ -362,7 +362,7 @@ unistd.h
 cstring
 -
 
-/home/duchonic/Documents/aoc/2016/day04/main.cpp
+/Users/duchonic/Documents/work/aoc/2016/day04/main.cpp
 iostream
 -
 string
@@ -384,7 +384,7 @@ deque
 algorithm
 -
 log.h
-/home/duchonic/Documents/aoc/2016/day04/log.h
+/Users/duchonic/Documents/work/aoc/2016/day04/log.h
 json.h
-/home/duchonic/Documents/aoc/2016/day04/json.h
+/Users/duchonic/Documents/work/aoc/2016/day04/json.h
 

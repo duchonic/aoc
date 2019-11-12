@@ -1,5 +1,5 @@
 project (aoc)
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.10)
 set (CMAKE_CXX_STANDARD 17)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
@@ -9,7 +9,8 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 	message(STATUS "Made with Windows ")
 	add_definitions(-DIS_WINDOWS)
 else()
-  message(WARNING "This will not work")
+    message(WARNING "This will not work")
+    add_definitions(-DIS_MAC)
 endif()
 
 add_executable(run main.cpp)

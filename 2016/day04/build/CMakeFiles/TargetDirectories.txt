@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 D:/work/source/aoc/2016/day04/build/CMakeFiles/run.dir
 D:/work/source/aoc/2016/day04/build/CMakeFiles/ALL_BUILD.dir
 D:/work/source/aoc/2016/day04/build/CMakeFiles/ZERO_CHECK.dir
+=======
+/Users/duchonic/Documents/work/aoc/2016/day04/build/CMakeFiles/rebuild_cache.dir
+/Users/duchonic/Documents/work/aoc/2016/day04/build/CMakeFiles/edit_cache.dir
+/Users/duchonic/Documents/work/aoc/2016/day04/build/CMakeFiles/run.dir
+>>>>>>> a4a75ba125fee8030f9732db4cf02eea513a4f64

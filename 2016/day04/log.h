@@ -12,13 +12,13 @@
 	#include <iomanip>
 	
 	#define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
-#elif IS_LINUX
+#else
 	#include <sys/time.h>
 	#include <unistd.h>
 	#include <cstring>
 	
 	#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
-#else
+
 	
 #endif
 
@@ -48,6 +48,10 @@ std::string getCurrentMSTimeString()
 	gettimeofday(&tv, NULL);
 	sprintf(timeString, "%02d:%02d:%02d:%03d", tm.tm_hour, tm.tm_min, tm.tm_sec, (int)(tv.tv_usec / 1000));
 	return timeString;
+#endif
+
+#ifdef IS_MAC
+    return " ";
 #endif
 
 #ifdef IS_WINDOWS

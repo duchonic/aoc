@@ -83,7 +83,7 @@ void runProgram(std::string fileName) {
 	std::multimap<double, char> order;
 	std::map<char, double> adder;
 
-	double x = 0.1;
+	double x = 0.9;
 	for (char c='a'; c<='z'; c++){
 	  	adder[c] = x;
 		x-= 0.01; 
@@ -104,7 +104,6 @@ void runProgram(std::string fileName) {
 		//INFO_LOG(data.command);
 		//INFO_LOG("decoy:" << data.decoy << " nr:" << data.nr << " cksum:" << data.checksum << " line:" << data.line);
 
-
 		order.clear();
 		for( auto item: data.map){
 			//DEBUG_LOG("INSERT:" << item.first << " " << item.second);
@@ -119,14 +118,34 @@ void runProgram(std::string fileName) {
 			compare += it->second;
 			//INFO_LOG(it->first << " " << it->second);		
 		}
+        
+        //DEBUG_LOG("compare: " << compare << " data.checksum: " << data.checksum);
 
 		if(compare == data.checksum){
-			INFO_LOG(data.raw);
+		    INFO_LOG(data.raw << data.nr);
 			sum += std::stoi(data.nr);
+        }
 
+        INFO_LOG(data.raw << data.nr << " modulo: " << std::stoi(data.nr)%26);
 
+        std::string deciphr{""};
+        for (auto c: data.raw){
+            if(c == '-'){
+                deciphr += ' ';
+            }
+            else{
+         
+                unsigned char  newC = int(c) + std::stoi(data.nr)%26;
 
-		}
+         
+                if (newC > int('z') ){
+                     newC -= 26;
+                }
+                
+                deciphr += newC;
+            }
+        }
+        INFO_LOG(" " << deciphr << " nr:" << data.nr);
 	}
 	DEBUG_LOG("THE SUM IS: " << sum);
 }
@@ -138,6 +157,6 @@ void runProgram(std::string fileName) {
 int main(){
 	INFO_LOG("2016/4");
 	runProgram("../test.txt");
-	//runProgram("../data.txt");
+	runProgram("../data.txt");
 	return 0;
 }

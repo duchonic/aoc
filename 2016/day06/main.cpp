@@ -7,7 +7,8 @@
 #include <cmath>
 #include <unordered_map>
 #include <algorithm>
-
+#include <map>
+#include <array>
 #include "log.h"
 
 /**
@@ -30,6 +31,7 @@ struct inputType{
 void runProgram(std::string fileName) {
 
 	std::vector<inputType> v;
+	std::array< std::map<char, uint16_t>, 8> cols;
 
 	auto file = std::ifstream(fileName);
 	assert(file.is_open());
@@ -43,16 +45,34 @@ void runProgram(std::string fileName) {
 	std::unordered_map<char, uint16_t> count;
 	
 	for (auto data : v) {
+		INFO_LOG(data.command);
+		size_t index = 0;
+		for (char ch : data.command) {
+			cols[index++][ch]++;
+		}
+	}
+	std::string solution{ "" };
+	for (size_t index : {0, 1, 2, 3, 4, 5, 6, 7}) {
+		char maxChar;
+		uint16_t min = 50000;
+		for (auto ch : cols[index]) {
+			if (ch.second < min) {
+				min = ch.second;
+				maxChar = ch.first;
+			}
+		}
+		solution += maxChar;
+		INFO_LOG("col:" << index << " max char: " << maxChar);
+	}
+
+	DEBUG_LOG(solution);
+
+	for (auto data : v) {
 		count.clear();
 
 		for (char ch : data.command) {
 			count[ch]++;
 		}
-
-		INFO_LOG(data.command);
-		//for (auto [key, value] : count) {
-		//	DEBUG_LOG("key:" << key << " value:" << value);
-		//}
 
 		using myPair = std::pair<char, unsigned int>;
 		auto comp = [](const myPair& a, const myPair& b) {
@@ -63,9 +83,9 @@ void runProgram(std::string fileName) {
 		for (auto const& kv : count)
 			sorted.insert(kv);
 
-		DEBUG_LOG("Sorted list according to frequency then alphabetically");
+		//DEBUG_LOG("Sorted list according to frequency then alphabetically");
 		for (auto const& kv : sorted){
-			DEBUG_LOG( kv.first << " = " << kv.second );
+			//DEBUG_LOG( kv.first << " = " << kv.second );
 		}
 	}
 }

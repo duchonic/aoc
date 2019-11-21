@@ -1,8 +1,12 @@
+<<<<<<< HEAD
+# Install script for directory: D:/work/source/aoc/2016/day04
+=======
 # Install script for directory: /Users/duchonic/Documents/work/aoc/2016/day04
+>>>>>>> a4a75ba125fee8030f9732db4cf02eea513a4f64
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/usr/local")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/aoc")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -12,7 +16,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "Release")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -40,5 +44,9 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
+<<<<<<< HEAD
+file(WRITE "D:/work/source/aoc/2016/day04/build/${CMAKE_INSTALL_MANIFEST}"
+=======
 file(WRITE "/Users/duchonic/Documents/work/aoc/2016/day04/build/${CMAKE_INSTALL_MANIFEST}"
+>>>>>>> a4a75ba125fee8030f9732db4cf02eea513a4f64
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

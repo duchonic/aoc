@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/duchonic/Documents/work/aoc/2016/regex/log.h
+iostream
+-
+string
+-
+stdlib.h
+-
+sys/utime.h
+-
+windows.h
+-
+sstream
+-
+iomanip
+-
+sys/time.h
+-
+unistd.h
+-
+cstring
+-
+
+/Users/duchonic/Documents/work/aoc/2016/regex/main.cpp
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+stdint.h
+-
+log.h
+/Users/duchonic/Documents/work/aoc/2016/regex/log.h
+regex
+-
+

@@ -140,38 +140,55 @@ void md5(uint8_t *initial_msg, size_t initial_len) {
 }
 
 int main(int argc, char **argv) {
+    
+    //std::string pwd = "abc";
+    std::string pwd = "wtnhxymk";
 
-    if (argc < 2) {
-        printf("usage: %s 'string'\n", argv[0]);
-        return 1;
+    int test = 0;
+
+    std::string solution = "........";
+
+    while (true) {
+    
+        
+        std::string check = pwd + std::to_string(test++);
+        auto len = check.length(); 
+        md5((uint8_t*) check.c_str()  , len);
+
+        //INFO_LOG(test << " ");
+        
+        //var char digest[16] := h0 append h1 append h2 append h3 //(Output is in little-endian)
+        uint8_t *p;
+
+        // display result
+        p=(uint8_t *)&h0;
+
+        if(p[0] == 0x00 && p[1] == 0x00 && p[2] <= 0x0f) {
+
+            int pos = p[2];
+            auto c = p[3] & 0xf0;
+            c /= 0x10;
+            INFO_LOG(c); 
+            char a[1];
+            sprintf(a, "%x", c);
+
+            if((solution[pos] == '.') && (pos < 8)){
+                solution[pos] = a[0];
+            }    
+
+
+            printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3]);
+            p=(uint8_t *)&h1;
+            printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3]);
+            p=(uint8_t *)&h2;
+            printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3]);
+            p=(uint8_t *)&h3;
+            printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3]);
+            puts(" ");
+
+            INFO_LOG("pos:" << pos << " char:" << c << " solution:" << solution);
+
+        }
     }
-
-    char *msg = argv[1];
-    size_t len = strlen(msg);
-
-    // benchmark
-    int i;
-    for (i = 0; i < 1000000; i++) {
-        md5((uint8_t*)msg, len);
-    }
-
-    //var char digest[16] := h0 append h1 append h2 append h3 //(Output is in little-endian)
-    uint8_t *p;
-
-    // display result
-
-    p=(uint8_t *)&h0;
-    printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3], h0);
-
-    p=(uint8_t *)&h1;
-    printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3], h1);
-
-    p=(uint8_t *)&h2;
-    printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3], h2);
-
-    p=(uint8_t *)&h3;
-    printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3], h3);
-    puts("");
-
     return 0;
 }

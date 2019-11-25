@@ -1,0 +1,3 @@
+D:/work/source/aoc/2016/day07/build/CMakeFiles/run.dir
+D:/work/source/aoc/2016/day07/build/CMakeFiles/ALL_BUILD.dir
+D:/work/source/aoc/2016/day07/build/CMakeFiles/ZERO_CHECK.dir

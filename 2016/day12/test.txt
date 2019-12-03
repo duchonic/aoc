@@ -1,0 +1,9 @@
+cpy 41 a
+inc a
+inc a
+dec a
+jnz a -1
+dec a
+cpy 33 b
+cpy 22 c
+cpy 11 d

@@ -13,28 +13,19 @@
 #include <array>
 #include "log.h"
 
-
-
-
 /**
 * @brief program that process some data from the file
 *        mostly called twice with test.txt and data.txt
 * @return manhatten distance to nearest point
 */
 int runProgram() {
-
-	int workingNr=0;
-	int workingNrPart1 = 0;
-	int workingNrPart2 = 0;
-	// 231832
-	// 767346
+	int workingNrPart1=0;
+	int workingNrPart2=0;
 	for(int nr= 231832; nr < 767346;nr++){
 		std::string strNr{std::to_string(nr)};
-
 		int lastNr = -1;
 		bool equal = false;
-		std::array<int,10> counts{0,0,0,0,0,0,0,0,0,0};
-		
+		std::array<int,10> counts{1,1,1,1,1,1,1,1,1,1};
 		for (auto ch: strNr){
 			if( (int(ch)-0x30) >= lastNr){
 				if( (int(ch)-0x30) == lastNr){
@@ -49,25 +40,18 @@ int runProgram() {
 			}
 		}
 		if(equal && (lastNr != -1)){
-
-			bool checkPart2 = true;
+			bool checkPart2 = false;
 			for (auto count : counts) {
-				if ( (count > 0) && (count % 2 == 0) ) {
-					checkPart2 = false;
+				if (count == 2) {
+					workingNrPart2++;
 					break;
 				}
 			}
-			if (checkPart2) {
-				INFO_LOG("part2 check " << ++workingNrPart2 << " : " << nr);
-			}
-			else {
-				
-			}
-			INFO_LOG("part1 check " << ++workingNrPart1 << " : " << nr);
-            workingNr++;
+            workingNrPart1++;
 		}
 	}
-	return workingNr;
+	INFO_LOG("part2 check true: " << workingNrPart2);
+	return workingNrPart1;
 }
 
 /**
@@ -76,7 +60,6 @@ int runProgram() {
 */
 int main(){
 	INFO_LOG("aoc 2019 day 04");
-
 	int result = runProgram();
 	INFO_LOG("part1: " << result);
 	return 0;

@@ -1,6 +1,6 @@
-^D:\WORK\SOURCE\AOC\2019\DAY03\BUILDWIN\CMAKEFILES\7DAEA67592D5C5BECB02F0FB36F6EDDF\GENERATE.STAMP.RULE
+^D:\WORK\SOURCE\AOC\2019\DAY04\BUILDWIN\CMAKEFILES\7FBA877C581129C090E628898B836D4B\GENERATE.STAMP.RULE
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SD:/work/source/aoc/2019/day03 -BD:/work/source/aoc/2019/day03/buildWin --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/work/source/aoc/2019/day03/buildWin/aoc.sln
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/work/source/aoc/2019/day04 -BD:/work/source/aoc/2019/day04/buildWin --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/work/source/aoc/2019/day04/buildWin/aoc.sln
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone

@@ -24,24 +24,24 @@
 int runProgram() {
 
 	int workingNr=0;
+	int workingNrPart1 = 0;
+	int workingNrPart2 = 0;
+	// 231832
 	// 767346
-	for(int nr=231832; nr<234001;nr++){
+	for(int nr= 231832; nr < 767346;nr++){
 		std::string strNr{std::to_string(nr)};
 
-		int lastNr = 0;
+		int lastNr = -1;
 		bool equal = false;
-		INFO_LOG(nr);
-		std::array<int,10> count{0,0,0,0,0,0,0,0,0,0};
-
+		std::array<int,10> counts{0,0,0,0,0,0,0,0,0,0};
+		
 		for (auto ch: strNr){
-			if( int(ch) >= lastNr){
-				INFO_LOG(ch);
-				if( int(ch) == lastNr){
-					INFO_LOG(lastNr);
-					//count.at(int(ch))++;
+			if( (int(ch)-0x30) >= lastNr){
+				if( (int(ch)-0x30) == lastNr){
+					counts.at(lastNr)++;
 					equal = true;
 				}
-				lastNr = int(ch);
+				lastNr = int(ch)-0x30;
 			}
 			else{
 				lastNr = -1;
@@ -49,8 +49,22 @@ int runProgram() {
 			}
 		}
 		if(equal && (lastNr != -1)){
-			INFO_LOG(nr);
-			workingNr++;
+
+			bool checkPart2 = true;
+			for (auto count : counts) {
+				if ( (count > 0) && (count % 2 == 0) ) {
+					checkPart2 = false;
+					break;
+				}
+			}
+			if (checkPart2) {
+				INFO_LOG("part2 check " << ++workingNrPart2 << " : " << nr);
+			}
+			else {
+				
+			}
+			INFO_LOG("part1 check " << ++workingNrPart1 << " : " << nr);
+            workingNr++;
 		}
 	}
 	return workingNr;

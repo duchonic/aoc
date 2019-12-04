@@ -22,7 +22,7 @@
 	
 #endif
 
-#define FILENAME_AND_LINE  __FILENAME__ << ':' << __LINE__ << "/" << __FUNCTION__ << "/"
+#define FILENAME_AND_LINE  __FILENAME__ << ':' << __LINE__ << "/" << __FUNCTION__ << "/ "
 #define BUILD_DATE_AND_TIME  __DATE__ << ' ' << __TIME__
 #define CURRENT_TIME getCurrentMSTimeString()
 

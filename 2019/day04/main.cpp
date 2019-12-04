@@ -13,18 +13,7 @@
 #include <array>
 #include "log.h"
 
-/**
-* @brief process data in file with this struct
-*
-*/
-struct inputType
-{
-	std::string line;
-	friend std::istream& operator>>(std::istream& is, inputType& info){
-		is >> info.line;
-		return is;
-	}
-};
+
 
 
 /**
@@ -32,18 +21,39 @@ struct inputType
 *        mostly called twice with test.txt and data.txt
 * @return manhatten distance to nearest point
 */
-int runProgram(std::string fileName) {
-	auto file = std::ifstream(fileName);
-	assert(file.is_open());
-	DEBUG_LOG("data from " << fileName);
+int runProgram() {
 
-	std::vector<std::string> bots;
-	for (inputType data; file >> data;) {
-		bots.push_back(data.line);
-		DEBUG_LOG(data.line);
+	int workingNr=0;
+	// 767346
+	for(int nr=231832; nr<234001;nr++){
+		std::string strNr{std::to_string(nr)};
+
+		int lastNr = 0;
+		bool equal = false;
+		INFO_LOG(nr);
+		std::array<int,10> count{0,0,0,0,0,0,0,0,0,0};
+
+		for (auto ch: strNr){
+			if( int(ch) >= lastNr){
+				INFO_LOG(ch);
+				if( int(ch) == lastNr){
+					INFO_LOG(lastNr);
+					//count.at(int(ch))++;
+					equal = true;
+				}
+				lastNr = int(ch);
+			}
+			else{
+				lastNr = -1;
+				break;
+			}
+		}
+		if(equal && (lastNr != -1)){
+			INFO_LOG(nr);
+			workingNr++;
+		}
 	}
-
-	return 0;
+	return workingNr;
 }
 
 /**
@@ -52,9 +62,8 @@ int runProgram(std::string fileName) {
 */
 int main(){
 	INFO_LOG("aoc 2019 day 04");
-	assert( runProgram("../test_a.txt") == 0);
-	assert( runProgram("../test_b.txt") == 0);
-	int result = runProgram("../data.txt");
+
+	int result = runProgram();
 	INFO_LOG("part1: " << result);
 	return 0;
 }

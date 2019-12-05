@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/duchonic/Documents/work/aoc/2019/day05/main.cpp
+iostream
+-
+string
+-
+fstream
+-
+array
+-
+vector
+-
+set
+-
+cassert
+-
+cmath
+-
+

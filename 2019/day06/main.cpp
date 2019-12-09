@@ -41,6 +41,7 @@ struct inputType
 int runProgram(std::string fileName)
 {
 	int result = 0;
+	std::vector< std::string > tree;
 
 	auto file = std::ifstream(fileName);
 	assert(file.is_open());
@@ -48,8 +49,12 @@ int runProgram(std::string fileName)
 	INFO_LOG("run: " << fileName);
 
 	for (inputType data; file >> data;) {
-		INFO_LOG(data.connection.first << " >> " << data.connection.second);
+		if (data.connection.first == "COM") {
+			tree.push_back(data.connection.second);
+			INFO_LOG(data.connection.first << " >> " << data.connection.second);
+		}
 	}
+
 	return result;
 }
 
@@ -59,7 +64,7 @@ int runProgram(std::string fileName)
 int main()
 {
 	INFO_LOG("aoc 2019 day 06");
-	assert(runProgram("../test.txt") == 42);
-	INFO_LOG("part1: " << runProgram(""));
+	assert(runProgram("../test.txt") == 0);
+	//INFO_LOG("part1: " << runProgram("../data.txt"));
 	return 0;
 }

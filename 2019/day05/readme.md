@@ -1,30 +1,18 @@
-
 Advent of Code
 
-    [About][Events][Shop][Settings][Log Out]
-
-duchonic 8*
-   sub y{2019}
-
-    [Calendar][AoC++][Sponsors][Leaderboard][Stats]
-
-Our sponsors help make Advent of Code possible:
-TwilioQuest - Play Advent of Code and earn rad loot in TwilioQuest, a developer RPG for Mac, Windows, and Linux. 
-Learn JavaScript, Python, git, APIs for SMS, VoIP, or WhatsApp, and much more.
 --- Day 5: Sunny with a Chance of Asteroids ---
 
 You're starting to sweat as the ship makes its way toward Mercury. The Elves suggest that you get the air 
 conditioner working by upgrading your ship computer to support the Thermal Environment Supervision Terminal.
-
 
 The Thermal Environment Supervision Terminal (TEST) starts by running a diagnostic program (your puzzle input). 
 The TEST diagnostic program will run on your existing Intcode computer after a few modifications:
 
 First, you'll need to add two new instructions:
 
-    Opcode 3 takes a single integer as input and saves it to the position given by its only parameter. For 
+-> ok done ->    Opcode 3 takes a single integer as input and saves it to the position given by its only parameter. For 
 example, the instruction 3,50 would take an input value and store it at address 50.
-    Opcode 4 outputs the value of its only parameter. For example, the instruction 4,50 would output the value 
+-> ok done ->    Opcode 4 outputs the value of its only parameter. For example, the instruction 4,50 would output the value 
 at address 50.
 
 Programs that use these instructions will come with documentation that explains what should be connected to the 

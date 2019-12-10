@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Install script for directory: D:/work/source/aoc/2019/day04
+=======
+# Install script for directory: D:/work/source/aoc/2019/day06
+>>>>>>> f69be15c8a1658e58b9bc238aed6779e3fd2ee48
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +44,9 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
+<<<<<<< HEAD
 file(WRITE "D:/work/source/aoc/2019/day04/buildWin/${CMAKE_INSTALL_MANIFEST}"
+=======
+file(WRITE "D:/work/source/aoc/2019/day06/buildWin/${CMAKE_INSTALL_MANIFEST}"
+>>>>>>> f69be15c8a1658e58b9bc238aed6779e3fd2ee48
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

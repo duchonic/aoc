@@ -1,16 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+<<<<<<< HEAD
     <ClCompile Include="D:\work\source\aoc\2019\day04\main.cpp">
+=======
+    <ClCompile Include="D:\work\source\aoc\2019\day06\main.cpp">
+>>>>>>> f69be15c8a1658e58b9bc238aed6779e3fd2ee48
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <CustomBuild Include="D:\work\source\aoc\2019\day04\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
       <UniqueIdentifier>{77A52EC3-AC38-3992-93D2-603A6DEE1282}</UniqueIdentifier>
+=======
+    <CustomBuild Include="D:\work\source\aoc\2019\day06\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{AD3ACA23-4C3E-3E42-88C3-DC84AEAC22AB}</UniqueIdentifier>
+>>>>>>> f69be15c8a1658e58b9bc238aed6779e3fd2ee48
     </Filter>
   </ItemGroup>
 </Project>

@@ -31,16 +31,16 @@ struct inputType
 	}
 };
 
-void printMap(std::multimap< int, std::pair<double, std::pair<int,int>> > masterList){
+void printMap(std::multimap< double, std::pair<double, std::pair<int,int>> > masterList){
 	std::vector< std::string > map;
-	for(int row=0; row<5; row++){
-		map.push_back( std::string(18,'.') );
+	for(int row=0; row<20; row++){
+		map.push_back( std::string(20,'.') );
 	}
 
 	for(auto asteroid: masterList){
 		map.at(asteroid.second.second.second).at(asteroid.second.second.first) = 'x';
 	}
-	map.at(3).at(8) = '#';
+	map.at(16).at(8) = '#';
 	int lineNr = 100;
 	for(auto line: map){
 		INFO_LOG("line:" << lineNr++ << " " << line);
@@ -74,9 +74,9 @@ int runProgram(std::string fileName) {
 	}
 	int max = 0;
 	std::set<double> angles;
-	std::multimap< int, std::pair<double, std::pair<int,int>> > masterList;
+	std::multimap< double, std::pair<double, std::pair<int,int>> > masterList;
 
-	auto source = std::make_pair(8,3);	
+	auto source = std::make_pair(8,16);	
 
 	angles.clear();
 	for ( auto destination: asteroids){
@@ -88,7 +88,7 @@ int runProgram(std::string fileName) {
 			double distance = sqrt((diffY * diffY) + (diffX * diffX));
 
 			angle *= -1;
-			angle = int(angle * 180 / PI);
+			angle = angle * 180 / PI;
 
 			if(angle < 0){
 				angle = 360 + angle;
@@ -119,7 +119,7 @@ int runProgram(std::string fileName) {
 				//printf("\033c");
 				INFO_LOG("current astro map");
 				printMap(masterList);
-				std::this_thread::sleep_for(2s);
+				std::this_thread::sleep_for(50ms);
 				
 			}
 			else{
@@ -129,6 +129,7 @@ int runProgram(std::string fileName) {
 				break;
 			}
 		}
+
 		if(asteroidsErased >= 200){
 			break;
 		}
@@ -142,7 +143,7 @@ int runProgram(std::string fileName) {
 */
 int main(){
 	INFO_LOG("aoc 2019 day 10");
-	int result = runProgram( "../test.txt");
+	int result = runProgram( "../data.txt");
 	INFO_LOG("part1: " << result);
 	return 0;
 }

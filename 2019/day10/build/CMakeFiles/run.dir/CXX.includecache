@@ -59,4 +59,8 @@ log.h
 /Users/duchonic/Documents/work/aoc/2019/day10/log.h
 cmath
 -
+chrono
+-
+thread
+-
 

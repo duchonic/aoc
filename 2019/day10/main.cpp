@@ -13,6 +13,10 @@
 #include <array>
 #include "log.h"
 #include <cmath>
+#include <chrono>
+#include <thread>
+
+#define PI 3.14159265
 
 /**
 * @brief process data in file with this struct
@@ -26,6 +30,24 @@ struct inputType
 		return is;
 	}
 };
+
+void printMap(std::multimap< double, std::pair<double, std::pair<int,int>> > masterList){
+	std::vector< std::string > map;
+	for(int row=0; row<20; row++){
+		map.push_back( std::string(20,'.') );
+	}
+
+	for(auto asteroid: masterList){
+		map.at(asteroid.second.second.second).at(asteroid.second.second.first) = 'x';
+	}
+	map.at(16).at(8) = '#';
+	int lineNr = 100;
+	for(auto line: map){
+		INFO_LOG("line:" << lineNr++ << " " << line);
+	}
+}
+
+using namespace std::chrono_literals;
 
 /**
 * @brief program that process some data from the file
@@ -52,12 +74,7 @@ int runProgram(std::string fileName) {
 	}
 	int max = 0;
 	std::set<double> angles;
-	//std::multimap< std::pair<double,double>, std::pair<int,int> > masterList; 
-	std::multimap< double, double> masterList;
-	std::vector< std::pair<double,double> > angleLength;
-	
-	//for ( auto source : asteroids){
-	// part 2
+	std::multimap< double, std::pair<double, std::pair<int,int>> > masterList;
 
 	auto source = std::make_pair(8,16);	
 
@@ -66,18 +83,20 @@ int runProgram(std::string fileName) {
 
 		if(source != destination){
 			double angle = std::atan2(source.first - destination.first, source.second - destination.second);
-			//int distancex = (destination.first - source.first) * (destination.first - source.first);
-			//int distancey = (destination.second - source.second) * (destination.second - source.second);
-			
 			float diffY = source.second - destination.second;
 			float diffX = source.first - destination.first;
 			double distance = sqrt((diffY * diffY) + (diffX * diffX));
-			//double distance = sqrt(distancex - distancey); 
-			//masterList[angle] = distance;
-			masterList.insert( std::make_pair(angle, distance) );
-			//angleLength.push_back( std::make_pair(angle, distance)  );
+
+			angle *= -1;
+			angle = angle * 180 / PI;
+
+			if(angle < 0){
+				angle = 360 + angle;
+			}
+
+			masterList.insert( std::make_pair( angle , 
+				std::make_pair(distance, std::make_pair(destination.first, destination.second) ) ));
 			angles.insert(angle);
-			//INFO_LOG( std::atan2(source.first - destination.first, source.second - destination.second) );
 		}
 
 	}
@@ -87,12 +106,34 @@ int runProgram(std::string fileName) {
 		max = angles.size();
 	}
 
-	for (auto x : masterList){
+	int asteroidsErased = 0;
+	while(true){
+		for(auto it = masterList.begin(); it != masterList.end(); ) {
+			
+			DEBUG_NDU("element " << it->first << " " << it->second.first << " " << it->second.second.first << " " << it->second.second.second);
 
-		DEBUG_LOG("angle:" << x.first << " len:" << x.second);
+			if(std::next(it,1)->first != it->first){
+				INFO_LOG("erase " << it->first << " " << it->second.first << " erasedAsteroid " << ++asteroidsErased << " " << it->second.second.first << " " << it->second.second.second);
+				it = masterList.erase(it);
+				
+				//printf("\033c");
+				INFO_LOG("current astro map");
+				printMap(masterList);
+				std::this_thread::sleep_for(50ms);
+				
+			}
+			else{
+				++it;
+			}
+			if(asteroidsErased >= 200){
+				break;
+			}
+		}
+
+		if(asteroidsErased >= 200){
+			break;
+		}
 	}
-	//}
-
 	return max;
 }
 
@@ -102,8 +143,6 @@ int runProgram(std::string fileName) {
 */
 int main(){
 	INFO_LOG("aoc 2019 day 10");
-	//int result = runProgram("../test.txt");
-	//assert ( result == 210);
 	int result = runProgram( "../data.txt");
 	INFO_LOG("part1: " << result);
 	return 0;

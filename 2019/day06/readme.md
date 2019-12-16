@@ -1,48 +1,3 @@
-<<<<<<< HEAD
---- Day 4: Secure Container ---
-
-You arrive at the Venus fuel depot only to discover it's protected by a password. The Elves had written the password on a 
-sticky note, but someone threw it out.
-
-However, they do remember a few key facts about the password:
-
-    It is a six-digit number.
-    The value is within the range given in your puzzle input.
-    Two adjacent digits are the same (like 22 in 122345).
-    Going from left to right, the digits never decrease; they only ever increase or stay the same (like 111123 or 135679).
-
-Other than the range rule, the following are true:
-
-    111111 meets these criteria (double 11, never decreases).
-    223450 does not meet these criteria (decreasing pair of digits 50).
-    123789 does not meet these criteria (no double).
-
-How many different passwords within the range given in your puzzle input meet these criteria?
-
-Your puzzle answer was 1330.
-
-The first half of this puzzle is complete! It provides one gold star: *
-
---- Part Two ---
-
-An Elf just remembered one more important detail: the two adjacent matching digits are not part of a larger group of 
-matching digits.
-
-Given this additional criterion, but still ignoring the range rule, the following are now true:
-
-    112233 meets these criteria because the digits never decrease and all repeated digits are exactly two digits long.
-    123444 no longer meets the criteria (the repeated 44 is part of a larger group of 444).
-    111122 meets the criteria (even though 1 is repeated more than twice, it still contains a double 22).
-
-How many different passwords within the range given in your puzzle input meet all of the criteria?
-
-Your puzzle input is still 231832-767346.
-
-
-778 is to low
-778 is to low
-790 is to low
-=======
 --- Day 6: Universal Orbit Map ---
 
 You've landed at the Universal Orbit Map facility on Mercury. Because navigation in space often involves 
@@ -108,4 +63,59 @@ The total number of direct and indirect orbits in this example is 42.
 
 What is the total number of direct and indirect orbits in your map data?
 
->>>>>>> f69be15c8a1658e58b9bc238aed6779e3fd2ee48
+
+
+--- Part Two ---
+
+Now, you just need to figure out how many orbital transfers you (YOU) need to take to get to Santa (SAN).
+
+You start at the object YOU are orbiting; your destination is the object SAN is orbiting. An orbital transfer 
+lets you move from any object to an object orbiting or orbited by that object.
+
+For example, suppose you have the following map:
+
+COM)B
+B)C
+C)D
+D)E
+E)F
+B)G
+G)H
+D)I
+E)J
+J)K
+K)L
+K)YOU
+I)SAN
+
+Visually, the above map of orbits looks like this:
+
+                          YOU
+                         /
+        G - H       J - K - L
+       /           /
+COM - B - C - D - E - F
+               \
+                I - SAN
+
+In this example, YOU are in orbit around K, and SAN is in orbit around I. To move from K to I, a minimum of 4 
+orbital transfers are required:
+
+    K to J
+    J to E
+    E to D
+    D to I
+
+Afterward, the map of orbits looks like this:
+
+        G - H       J - K - L
+       /           /
+COM - B - C - D - E - F
+               \
+                I - SAN
+                 \
+                  YOU
+
+What is the minimum number of orbital transfers required to move from the object YOU are orbiting to the object 
+SAN is orbiting? (Between the objects they are orbiting - not between YOU and SAN.)
+

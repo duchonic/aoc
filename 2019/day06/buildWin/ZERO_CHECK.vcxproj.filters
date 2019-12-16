@@ -1,21 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-<<<<<<< HEAD
-    <CustomBuild Include="D:\work\source\aoc\2019\day04\buildWin\CMakeFiles\7fba877c581129c090e628898b836d4b\generate.stamp.rule">
-=======
     <CustomBuild Include="D:\work\source\aoc\2019\day06\buildWin\CMakeFiles\7a432c6bef129549a816d9155a0f1e72\generate.stamp.rule">
->>>>>>> f69be15c8a1658e58b9bc238aed6779e3fd2ee48
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-<<<<<<< HEAD
-      <UniqueIdentifier>{F40995D1-FF50-3CB7-9B4A-6D5C41CBAD68}</UniqueIdentifier>
-=======
       <UniqueIdentifier>{F26B17C4-1609-3199-B1C5-3D965113F129}</UniqueIdentifier>
->>>>>>> f69be15c8a1658e58b9bc238aed6779e3fd2ee48
     </Filter>
   </ItemGroup>
 </Project>

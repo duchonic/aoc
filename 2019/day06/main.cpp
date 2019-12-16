@@ -12,12 +12,9 @@
 #include <map>
 #include <array>
 #include "log.h"
+#include "json.h"
+#include "log.h"
 
-/**
-<<<<<<< HEAD
-=======
-* @brief process data in file with this struct
-*/
 struct inputType
 {
 	std::pair<std::string, std::string> connection;
@@ -35,48 +32,6 @@ struct inputType
 	}
 };
 
-/**
->>>>>>> f69be15c8a1658e58b9bc238aed6779e3fd2ee48
-* @brief program that process some data from the file
-*        mostly called twice with test.txt and data.txt
-* @return manhatten distance to nearest point
-*/
-<<<<<<< HEAD
-int runProgram() {
-	int workingNrPart1=0;
-	int workingNrPart2=0;
-	for(int nr= 231832; nr < 767346;nr++){
-		std::string strNr{std::to_string(nr)};
-		int lastNr = -1;
-		bool equal = false;
-		std::array<int,10> counts{1,1,1,1,1,1,1,1,1,1};
-		for (auto ch: strNr){
-			if( (int(ch)-0x30) >= lastNr){
-				if( (int(ch)-0x30) == lastNr){
-					counts.at(lastNr)++;
-					equal = true;
-				}
-				lastNr = int(ch)-0x30;
-			}
-			else{
-				lastNr = -1;
-				break;
-			}
-		}
-		if(equal && (lastNr != -1)){
-			bool checkPart2 = false;
-			for (auto count : counts) {
-				if (count == 2) {
-					workingNrPart2++;
-					break;
-				}
-			}
-            workingNrPart1++;
-		}
-	}
-	INFO_LOG("part2 check true: " << workingNrPart2);
-	return workingNrPart1;
-=======
 int runProgram(std::string fileName)
 {
 	int result = 0;
@@ -87,33 +42,49 @@ int runProgram(std::string fileName)
 
 	INFO_LOG("run: " << fileName);
 
+	// for convenience
+	using json = nlohmann::json;
+	json Connections;
+
+	std::map<std::string, int> treeDistances;
+	std::map<std::string, std::string> directions;
+
 	for (inputType data; file >> data;) {
-		if (data.connection.first == "COM") {
-			tree.push_back(data.connection.second);
-			INFO_LOG(data.connection.first << " >> " << data.connection.second);
-		}
+		treeDistances.insert(std::make_pair(data.connection.second, 0));
+		directions.insert(std::make_pair(data.connection.second, data.connection.first));
 	}
 
-	return result;
->>>>>>> f69be15c8a1658e58b9bc238aed6779e3fd2ee48
+	int count = 0;
+	
+
+	for (auto destinations : treeDistances) {
+		auto start = destinations.first;
+		bool printFlag = false;
+		if (start == "YOU" || start == "SAN") {
+			printFlag = true;
+		}
+
+		if (printFlag) {
+			INFO_LOG("route from: " << start << " count: " << count);
+		}
+		while (start != "COM") {
+			count++;
+			start = directions[start];
+			if (printFlag) {
+				std::cout << start << " ";
+			}
+		}
+		if (printFlag) {
+			std::cout << std::endl;
+		}
+	}
+	return count;
 }
 
-/**
-* @brief the mainloop
-<<<<<<< HEAD
-* 
-*/
-int main(){
-	INFO_LOG("aoc 2019 day 04");
-	int result = runProgram();
-	INFO_LOG("part1: " << result);
-=======
-*/
 int main()
 {
 	INFO_LOG("aoc 2019 day 06");
-	assert(runProgram("../test.txt") == 0);
-	//INFO_LOG("part1: " << runProgram("../data.txt"));
->>>>>>> f69be15c8a1658e58b9bc238aed6779e3fd2ee48
+	assert(runProgram("../test.txt") == 42);
+	INFO_LOG("part1: " << runProgram("../data.txt"));
 	return 0;
 }

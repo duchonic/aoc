@@ -84,15 +84,6 @@ C:/Program Files/CMake/share/cmake-3.14/Modules/Platform/Windows-MSVC-CXX.cmake
 C:/Program Files/CMake/share/cmake-3.14/Modules/Platform/Windows-MSVC.cmake
 C:/Program Files/CMake/share/cmake-3.14/Modules/Platform/Windows.cmake
 C:/Program Files/CMake/share/cmake-3.14/Modules/Platform/WindowsPaths.cmake
-<<<<<<< HEAD
-D:/work/source/aoc/2019/day04/CMakeLists.txt
-D:/work/source/aoc/2019/day04/buildWin/CMakeFiles/3.14.0-rc4/CMakeCCompiler.cmake
-D:/work/source/aoc/2019/day04/buildWin/CMakeFiles/3.14.0-rc4/CMakeCXXCompiler.cmake
-D:/work/source/aoc/2019/day04/buildWin/CMakeFiles/3.14.0-rc4/CMakeRCCompiler.cmake
-D:/work/source/aoc/2019/day04/buildWin/CMakeFiles/3.14.0-rc4/CMakeSystem.cmake
-D:/work/source/aoc/2019/day04/buildWin/CMakeFiles/feature_tests.c
-D:/work/source/aoc/2019/day04/buildWin/CMakeFiles/feature_tests.cxx
-=======
 D:/work/source/aoc/2019/day06/CMakeLists.txt
 D:/work/source/aoc/2019/day06/buildWin/CMakeFiles/3.14.0-rc4/CMakeCCompiler.cmake
 D:/work/source/aoc/2019/day06/buildWin/CMakeFiles/3.14.0-rc4/CMakeCXXCompiler.cmake
@@ -100,4 +91,3 @@ D:/work/source/aoc/2019/day06/buildWin/CMakeFiles/3.14.0-rc4/CMakeRCCompiler.cma
 D:/work/source/aoc/2019/day06/buildWin/CMakeFiles/3.14.0-rc4/CMakeSystem.cmake
 D:/work/source/aoc/2019/day06/buildWin/CMakeFiles/feature_tests.c
 D:/work/source/aoc/2019/day06/buildWin/CMakeFiles/feature_tests.cxx
->>>>>>> f69be15c8a1658e58b9bc238aed6779e3fd2ee48

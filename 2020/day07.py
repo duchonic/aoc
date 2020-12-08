@@ -1,8 +1,6 @@
 # Read in groups from file
 lines = [x.strip() for x in open('day07.txt', 'r').readlines() if x != '']
 
-print(lines)
-
 def part1():
     bags = {}
     q = []
@@ -11,7 +9,9 @@ def part1():
         bag = bag.replace('bags','').strip()
         if 'shiny gold' in contains:
             q.append(bag)
+            #print(contains)
         bags[bag] = contains
+        #print(bag)
 
     answer = set(q)
     while len(q) != 0:
@@ -20,6 +20,7 @@ def part1():
             if nxt in bags[b]:
                 q.append(b)
                 answer.add(b)
+    print(answer)
     return len(answer)
 
 def part2():

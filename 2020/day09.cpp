@@ -23,26 +23,27 @@ int main(){
 		std::cout << "file not found" << std::endl;
 	}
 
-	std::list<long> sums;
 
 	const int LOOKBACK = 25;
+
+	std::list<long> sums;
 	const long GOAL = 27911108;
-
-	for(int p = 0; p < numbers.size(); p++){
-		sums.push_back(numbers[p]);
-
+	for(auto number : numbers){
+		//add current number to list
+		sums.push_back(number);
+		//check if sum of list is bigger than GOAL
 		while( std::accumulate(sums.begin(), sums.end(), 0) > GOAL ){
 			sums.pop_front();
 		}
-
+		//if sum is equal GOAL get smallest and biggest value of list
 		if(std::accumulate(sums.begin(), sums.end(), 0) == GOAL){
 			sums.sort();
-			for(long i:sums){
-				std::cout << i << std::endl;
-			}
+			std::cout << sums.front() << " + " << sums.back() << 
+				" = " << sums.front() + sums.back() << std::endl;
+			break;
 		}
-
 	}
+	return 0;
 
 	for(int pos = LOOKBACK; pos < numbers.size(); pos++){
 		std::cout << numbers[pos] << std::endl;

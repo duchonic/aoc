@@ -56,14 +56,21 @@ int main(){
 		}
 
 		ids.sort();
+
 		for(int previous = 0; int id: ids){
 			if( previous+1 != id){
 				mySeat = id-1;
 			}
 			previous = id;
 		}
+
 		std::cout << "part1: " << maxID << std::endl;
-		std::cout << "part2: " << mySeat << std::endl;
+		for(std::list<int>::iterator it=ids.begin(); it!=ids.end();it++){
+			//std::cout << (*it-1) << " " << (*it) << std::endl;
+			if( (*it-1)+1 != (*it) ){
+				std::cout << "part2: " << *it << std::endl;
+			}
+		}
 	}
 	else{
 		std::cout << "file not found" << std::endl;

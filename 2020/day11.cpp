@@ -4,11 +4,12 @@
 #include <array>
 #include <vector>
 #include <list>
+#include <boost/range/irange.hpp>
 
 int main(){
 	std::vector<std::vector<char>> room;
 
-	std::ifstream inputFile("day11.txt");        // Input file stream object
+	std::ifstream inputFile("day11_test.txt");        // Input file stream object
 	std::cout << "day11" << std::endl;
 
 	if (inputFile.good()) {
@@ -27,6 +28,7 @@ int main(){
 				//add extra line on top bottom '...'
 				std::vector<char> extraLine;
 				for(auto c : newRow ){
+					(void)c;
 					extraLine.push_back('.');
 				}
 				room.push_back(extraLine);
@@ -57,7 +59,8 @@ int main(){
 		poepleMoved = false;
 		std::vector<std::vector<char>> roomSave = room;
 
-		for(unsigned int y=1; y < room.size()-1 ; y++){
+		//for(unsigned int y=1; y < room.size()-1 ; y++){
+		for(uint16_t y : boost::irange(1,int(room.size()-1)) ){
 			for (unsigned int x=1; x < room.at(0).size()-1 ; x++){
 				std::cout << room.at(y).at(x);
 

@@ -1,17 +1,20 @@
+#define _USE_MATH_DEFINES
+
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <complex>
 #include <vector>
-#include <math.h>
+#include <cmath>
+#include <assert.h>
 
 const int NORTH = 0;
 const int EAST = 1;
 const int SOUTH = 2;
 const int WEST = 3;
 
-std::pair<int,std::pair<int,int> > ship;
-std::pair<int,int> waypoint;
+std::pair<int,std::pair<double, double> > ship;
+std::pair<double, double> waypoint;
 
 void move(int dir, int steps){
 	switch (dir)
@@ -43,32 +46,29 @@ void foreward(int steps){
 	waypoint.second += ydiff * steps;
 }
 
-void rotate(float angle){
+void rotate(double angle){
 
-	int move2X0 = waypoint.first;
-	int move2Y0 = waypoint.second;
+	int move2X0 = ship.second.first;
+	int move2Y0 = ship.second.second;
 
-	ship.second.first -= move2X0;
-	ship.second.second -= move2Y0;
+	waypoint.first -= move2X0;
+	waypoint.second -= move2Y0;
 
-	// rotate
-	const std::complex<double> test(ship.second.first, ship.second.second);
+	std::complex<double> point(waypoint.first, waypoint.second);
+	point *=  std::polar( 1.0, angle );
+	waypoint.first = round(point.real());
+	waypoint.second = round(point.imag());
+	
 
-	std::cout << "abs:" << std::abs(test) << std::endl;
-	std::cout << "angle:" << angle << std::endl;
-	std::cout << "arg:" << std::arg(test)+angle << std::endl;
-
-
-
+	std::cout << waypoint.second << '+' << move2Y0 << std::endl;
 
 	// go back
-	ship.second.first += move2X0;
-	ship.second.second += move2Y0;
-
+	waypoint.first += move2X0;
+	waypoint.second += move2Y0;
 }
 
 int main(){
-	std::ifstream inputFile("day12_test.txt");        // Input file stream object
+	std::ifstream inputFile("day12.txt");        // Input file stream object
 	ship = std::make_pair(EAST, std::make_pair(0,0));
 	waypoint = std::make_pair(10,1);
 	if (inputFile.good()) {
@@ -92,10 +92,10 @@ int main(){
 				move(WEST, nr);
 			}
 			else if(letter == 'L'){
-				rotate(  2 * M_PI/360 * nr);
+				rotate(  2 * M_PI /360 * nr);
 			}
 			else if(letter == 'R'){
-				rotate( -2 * M_PI/360 * nr );
+				rotate( -2 * M_PI /360 * nr );
 			}
 
 			std::cout << "ship:" << ship.second.first << '/' << ship.second.second << std::endl;
@@ -107,11 +107,8 @@ int main(){
 		std::cout << "file not found" << std::endl;
 	}
 
-
 	std::cout << std::endl;
 	std::cout << "part1: " << ship.second.first << '/' << ship.second.second << std::endl;
-
-	std::cout << "part2:" << std::endl;
+	std::cout << "part2: " << abs(ship.second.first)+abs(ship.second.second) <<  std::endl;
 	return 0;
 }
-

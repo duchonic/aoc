@@ -3,7 +3,11 @@ set(CMAKE_CXX_STANDARD 17)
 project(hello_world)
 add_executable(app main.cpp)
 
-add_executable(test test/main.cpp test/bitwise.cpp)
+add_executable(test 
+  test/main.cpp 
+  test/bitwise.cpp
+  test/geometry.cpp
+)
 target_include_directories(test PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 set(url https://github.com/philsquared/Catch/releases/download/v2.13.6/catch.hpp)
 file(

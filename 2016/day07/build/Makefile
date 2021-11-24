@@ -111,9 +111,10 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named run
+# Target rules for targets named test
 
 # Build rule for target.
+<<<<<<< HEAD
 run: cmake_check_build_system
 	$(MAKE) -f CMakeFiles/Makefile2 run
 .PHONY : run
@@ -122,6 +123,29 @@ run: cmake_check_build_system
 run/fast:
 	$(MAKE) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/build
 .PHONY : run/fast
+=======
+test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test
+.PHONY : test
+
+# fast build rule for target.
+test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
+.PHONY : test/fast
+
+#=============================================================================
+# Target rules for targets named app
+
+# Build rule for target.
+app: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app
+.PHONY : app
+
+# fast build rule for target.
+app/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/build
+.PHONY : app/fast
+>>>>>>> f7d871a00a6f197c98291b4cff84681015572010
 
 main.o: main.cpp.o
 
@@ -129,7 +153,11 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
+<<<<<<< HEAD
 	$(MAKE) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/main.cpp.o
+=======
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/main.cpp.o
+>>>>>>> f7d871a00a6f197c98291b4cff84681015572010
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -138,7 +166,11 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
+<<<<<<< HEAD
 	$(MAKE) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/main.cpp.i
+=======
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/main.cpp.i
+>>>>>>> f7d871a00a6f197c98291b4cff84681015572010
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -147,8 +179,93 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
+<<<<<<< HEAD
 	$(MAKE) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/main.cpp.s
+=======
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/main.cpp.s
+>>>>>>> f7d871a00a6f197c98291b4cff84681015572010
 .PHONY : main.cpp.s
+
+test/bitwise.o: test/bitwise.cpp.o
+
+.PHONY : test/bitwise.o
+
+# target to build an object file
+test/bitwise.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test/bitwise.cpp.o
+.PHONY : test/bitwise.cpp.o
+
+test/bitwise.i: test/bitwise.cpp.i
+
+.PHONY : test/bitwise.i
+
+# target to preprocess a source file
+test/bitwise.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test/bitwise.cpp.i
+.PHONY : test/bitwise.cpp.i
+
+test/bitwise.s: test/bitwise.cpp.s
+
+.PHONY : test/bitwise.s
+
+# target to generate assembly for a file
+test/bitwise.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test/bitwise.cpp.s
+.PHONY : test/bitwise.cpp.s
+
+test/geometry.o: test/geometry.cpp.o
+
+.PHONY : test/geometry.o
+
+# target to build an object file
+test/geometry.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test/geometry.cpp.o
+.PHONY : test/geometry.cpp.o
+
+test/geometry.i: test/geometry.cpp.i
+
+.PHONY : test/geometry.i
+
+# target to preprocess a source file
+test/geometry.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test/geometry.cpp.i
+.PHONY : test/geometry.cpp.i
+
+test/geometry.s: test/geometry.cpp.s
+
+.PHONY : test/geometry.s
+
+# target to generate assembly for a file
+test/geometry.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test/geometry.cpp.s
+.PHONY : test/geometry.cpp.s
+
+test/main.o: test/main.cpp.o
+
+.PHONY : test/main.o
+
+# target to build an object file
+test/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test/main.cpp.o
+.PHONY : test/main.cpp.o
+
+test/main.i: test/main.cpp.i
+
+.PHONY : test/main.i
+
+# target to preprocess a source file
+test/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test/main.cpp.i
+.PHONY : test/main.cpp.i
+
+test/main.s: test/main.cpp.s
+
+.PHONY : test/main.s
+
+# target to generate assembly for a file
+test/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test/main.cpp.s
+.PHONY : test/main.cpp.s
 
 # Help Target
 help:
@@ -157,11 +274,25 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
+<<<<<<< HEAD
 	@echo "... edit_cache"
 	@echo "... run"
+=======
+	@echo "... app"
+	@echo "... test"
+>>>>>>> f7d871a00a6f197c98291b4cff84681015572010
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... test/bitwise.o"
+	@echo "... test/bitwise.i"
+	@echo "... test/bitwise.s"
+	@echo "... test/geometry.o"
+	@echo "... test/geometry.i"
+	@echo "... test/geometry.s"
+	@echo "... test/main.o"
+	@echo "... test/main.i"
+	@echo "... test/main.s"
 .PHONY : help
 
 

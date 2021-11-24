@@ -1,16 +1,21 @@
-project (aoc)
-cmake_minimum_required(VERSION 3.14)
-set (CMAKE_CXX_STANDARD 17)
+cmake_minimum_required(VERSION 3.4)
+set(CMAKE_CXX_STANDARD 17)
+project(hello_world)
+add_executable(app main.cpp)
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-	message(STATUS "Made with Linux")
-	add_definitions(-DIS_LINUX)
-elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-	message(STATUS "Made with Windows ")
-	add_definitions(-DIS_WINDOWS)
-else()
-	message(STATUS "Made with osx")
-	add_definitions(-DIS_MAC)
+add_executable(test 
+  test/main.cpp 
+  test/bitwise.cpp
+  test/geometry.cpp
+)
+target_include_directories(test PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+set(url https://github.com/philsquared/Catch/releases/download/v2.13.6/catch.hpp)
+file(
+  DOWNLOAD ${url} "${CMAKE_CURRENT_BINARY_DIR}/catch.hpp"
+  STATUS status
+  EXPECTED_HASH SHA256=681e7505a50887c9085539e5135794fc8f66d8e5de28eadf13a30978627b0f47)
+list(GET status 0 error)
+if(error)
+  message(FATAL_ERROR "Could not download ${url}")
 endif()
-
-add_executable(run main.cpp)
+target_include_directories(test PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")

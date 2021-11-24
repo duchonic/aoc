@@ -7,6 +7,7 @@ add_executable(test
   test/main.cpp 
   test/bitwise.cpp
   test/geometry.cpp
+  test/math.cpp
 )
 target_include_directories(test PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 set(url https://github.com/philsquared/Catch/releases/download/v2.13.6/catch.hpp)

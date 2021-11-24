@@ -6,80 +6,84 @@ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"
 "`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-'
 */
 
-#include <iostream>
 #include "help/help.h"
 #include "help/math.h"
 #include "help/bitwise.h"
 #include "help/prime.h"
 #include "help/geometry.h"
 #include "help/string.h"
-
-#include <string>
-
-#include <vector>
-
-static std::vector<std::string> data;
-
-static void readstuff() {
-	std::string a;
-	while ( std::getline(std::cin, a)) {
-		data.push_back(a);
-	}
-}
-
-static bool check(std::string test) {
-	for (int16_t index = 3; index < test.size(); index++) {
-
-		if (test.at(index) == test.at(index-3) &&
-			test.at(index-1) == test.at(index-2) &&
-			test.at(index) != test.at(index-1)) {
-				std::cout << "test: " << test << std::endl;
-				return true;
-		}
-	}
-	return false;
-}
+#include "help/file.h"
 
 int main() {
-	readstuff();
+	std::vector<std::string> data = readstuff();
 
 	int16_t tls = 0;
+	int16_t ssl = 0;
 	int16_t linenumber = 0;
 	for (auto line: data) {
-
+		std::cout << line << std::endl;
 		std::string testString{""};
 		bool foundInside = false;
 		bool foundOutside = false;
-		//std::cout << line << std::endl;
-		//std::cout << std::endl << "outside ";
+
+		std::string outside{""};
+		std::string inside{""};
+
 		for (auto ch : line) {
 			if (ch == '[') {
-				foundOutside |= check(testString);
+				foundOutside |= checkString(testString);
+				outside.append(testString);
+				outside.append(" ");
 				testString.clear();
-				//std::cout << std::endl << "inside ";
 			}
 			else if (ch == ']') {
-				foundInside |= check(testString);	
+				foundInside |= checkString(testString);	
+				inside.append(testString);
+				inside.append(" ");
 				testString.clear();
-				//std::cout << std::endl << "outside ";
 			}
 			else {
 				testString.push_back(ch);
-				//std::cout << ch;
 			}
 		}
+		foundOutside |= checkString(testString);	
+		outside.append(testString);
+
+		bool found = false;
+		for (std::string out : checkStringToSet(outside)) {
+			std::cout << out << " check inside: ";
+			for (std::string in : checkStringToSet(inside)) {
+				std::cout << in << " ";
+				if (out.at(0) == in.at(1) && out.at(1) == in.at(0)) {
+					std::cout << "<= match  "; 
+					found = true;
+				}
+			}
+			
+			std::cout << std::endl;
+		}
+		if (found) {
+			ssl++;
+		} 
+			
+		//std::cout << "check inside:" << checkSSL(inside) << std::endl;
+
+		outside.clear();
+		inside.clear();
 
 		linenumber++;
 
-		std::cout << line << std::endl;
 		if (foundOutside && !foundInside) {
 			tls++;
 			std::cout << "line: " << linenumber << " TLS  found : " << tls << std::endl;
 		}
-
+		else {
+			std::cout << "line: " << linenumber << std::endl;
+		}
 	}
 	
 	std::cout << "TLS found : " << tls << std::endl;
+	std::cout << "ssl found : " << ssl << std::endl;
 
 	return 1;
 }

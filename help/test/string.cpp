@@ -32,3 +32,26 @@ TEST_CASE( "splitstring" ) {
 
 }
 
+TEST_CASE("check string") {
+    std::string input{"kdkd llll"};
+    REQUIRE( checkString(input) == false);
+    input.append(" abba");
+    REQUIRE( checkString(input) == true);
+}
+
+TEST_CASE("check string to set") {
+    std::string input{"aaa bbb lll"};
+    REQUIRE( checkStringToSet(input).size() == 0);
+    input.append(" cac");
+    REQUIRE( checkStringToSet(input).size() == 1);
+    std::set<std::string> test = checkStringToSet(input);
+    auto search = test.find("ab");
+    REQUIRE (search == test.end() ); 
+    input.append(" bab");
+    REQUIRE( checkStringToSet(input).size() == 2);
+    test = checkStringToSet(input);
+    search = test.find("ba");
+    REQUIRE (search != test.end() ); 
+
+}
+

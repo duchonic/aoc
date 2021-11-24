@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <set>
 
 void split_str( std::string const &str, const char delim, std::vector<std::string> &out) {  
     // create a stream from the string  
@@ -30,4 +31,26 @@ bool sub_str(
 
             return true;
         }
+}
+
+std::set<std::string> checkStringToSet(std::string test) {
+	std::set<std::string> set;
+	for (int16_t index = 2; index < test.size(); index++) {
+		if (test.at(index) == test.at(index-2) &&
+			test.at(index) != test.at(index-1)) {
+				set.insert( test.substr(index-2,2));
+		}
+	}
+	return set;
+}
+
+bool checkString(std::string test) {
+	for (int16_t index = 3; index < test.size(); index++) {
+		if (test.at(index) == test.at(index-3) &&
+			test.at(index-1) == test.at(index-2) &&
+			test.at(index) != test.at(index-1)) {
+				return true;
+		}
+	}
+	return false;
 }

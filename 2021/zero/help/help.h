@@ -1,3 +1,5 @@
+#pragma once
+
 #define ar array
 #define ll long long
 #define ld long double

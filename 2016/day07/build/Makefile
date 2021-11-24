@@ -271,6 +271,33 @@ test/math.cpp.s:
 	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test/math.cpp.s
 .PHONY : test/math.cpp.s
 
+test/string.o: test/string.cpp.o
+
+.PHONY : test/string.o
+
+# target to build an object file
+test/string.cpp.o:
+	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test/string.cpp.o
+.PHONY : test/string.cpp.o
+
+test/string.i: test/string.cpp.i
+
+.PHONY : test/string.i
+
+# target to preprocess a source file
+test/string.cpp.i:
+	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test/string.cpp.i
+.PHONY : test/string.cpp.i
+
+test/string.s: test/string.cpp.s
+
+.PHONY : test/string.s
+
+# target to generate assembly for a file
+test/string.cpp.s:
+	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test/string.cpp.s
+.PHONY : test/string.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -296,6 +323,9 @@ help:
 	@echo "... test/math.o"
 	@echo "... test/math.i"
 	@echo "... test/math.s"
+	@echo "... test/string.o"
+	@echo "... test/string.i"
+	@echo "... test/string.s"
 .PHONY : help
 
 

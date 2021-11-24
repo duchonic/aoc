@@ -17,21 +17,20 @@ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"
 #include <string>
 
 int main() {
-  std::string a;
-  while ( std::getline(std::cin, a)) {
-    std::cout << a << std::endl;
+	std::string a;
+	while ( std::getline(std::cin, a)) {
+		std::cout << a << std::endl;
 
-    const char delim = '['; /* define the delimiter like space (' '), comma (,), hyphen (-), etc. */  
+		const char delim = '['; /* define the delimiter like space (' '), comma (,), hyphen (-), etc. */  
 
-    std::vector <std::string> out; // store the string in vector  
-    split_str (a, delim, out); // call function to split the string  
- 
-    // use range based for loop  
-    for (const auto s: out) {  
-        std::cout << " " << s;  
-    } 
-    std::cout << std::endl;
-  }
-
-  return 1;
+		std::vector <std::string> out; // store the string in vector  
+		split_str (a, delim, out); // call function to split the string  
+	 
+		// use range based for loop  
+		for (const auto s: out) {  
+			std::cout << " " << s;  
+		} 
+		std::cout << std::endl;
+	}
+	return 1;
 }

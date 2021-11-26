@@ -54,3 +54,7 @@ bool checkString(std::string test) {
 	}
 	return false;
 }
+
+bool find(std::string input, std::string pattern) {
+	return input.find(pattern) != std::string::npos;
+}

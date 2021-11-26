@@ -66,8 +66,6 @@ int main() {
 			ssl++;
 		} 
 			
-		//std::cout << "check inside:" << checkSSL(inside) << std::endl;
-
 		outside.clear();
 		inside.clear();
 

@@ -1,5 +1,6 @@
 2016/day07/build/
 2016/day08/build/
+2016/day09/build/
 *.exe
 .vs/
 Debug/

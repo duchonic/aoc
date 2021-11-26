@@ -1,0 +1,1 @@
+A(2x2)BCD(2x2)EFGX(8x2)(3x3)ABCY

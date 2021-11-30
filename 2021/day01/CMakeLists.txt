@@ -3,15 +3,15 @@ set(CMAKE_CXX_STANDARD 17)
 project(hello_world)
 add_executable(app main.cpp)
 
-<<<<<<< HEAD
-add_executable(test test/main.cpp test/bitwise.cpp
-	test/math.cpp
-=======
 add_executable(test 
-  test/main.cpp 
-  test/bitwise.cpp
-  test/geometry.cpp
->>>>>>> f7d871a00a6f197c98291b4cff84681015572010
+  ../../help/test/main.cpp 
+  ../../help/../help/test/bitwise.cpp
+  ../../help/../help/test/geometry.cpp
+  ../../help/../help/test/math.cpp
+  ../../help/../help/test/string.cpp
+)
+include_directories(
+  ../../
 )
 target_include_directories(test PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 set(url https://github.com/philsquared/Catch/releases/download/v2.13.6/catch.hpp)

@@ -8,3 +8,9 @@ Debug/
 2020/aoc
 build/
 *.out
+2021/day01/build/
+2021/day02/build/
+2021/day03/build/
+2021/day04/build/
+2021/day05/build/
+2021/day06/build/

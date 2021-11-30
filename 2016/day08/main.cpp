@@ -84,8 +84,6 @@ int main() {
 			} 
 		}
         show(pixel, screenX, screenY);
-        log(shwo(pixel, screenX, screenX));
-        //showow(pixel, screenX, screenY);
 	}
     part1 = pixel.size();
 	

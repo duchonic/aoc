@@ -13,6 +13,7 @@ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"
 #include "help/geometry.h"
 #include "help/string.h"
 #include "help/file.h"
+#include "help/log.h"
 
 int main() {
 	std::vector<std::string> data = readstuff();
@@ -20,8 +21,33 @@ int main() {
 	int16_t part1 = 0;
 	int16_t part2 = 0;
 	int16_t linenumber = 0;
+	int16_t oldnr = 10000;
+
+	log("part1");	
 	for (std::string line : data) {
-		std::cout << line << std::endl;
+		int16_t actualNr = stoi(line);
+		if (actualNr > oldnr) {
+			part1++;
+		}	
+		oldnr = actualNr;
+	}
+
+	log("part2");
+	oldnr = 10000;
+	linenumber = 0;
+	for (std::string line : data) {
+		log("test");
+		try{
+			int16_t actualNr = stoi(data.at(linenumber)) + stoi(data.at(linenumber+1)) + stoi(data.at(linenumber+2));
+			if (actualNr > oldnr) {
+				part2++;
+			}	
+			oldnr = actualNr;
+		}
+		catch(const std::out_of_range& e) {
+			break;
+		}
+		linenumber++;
 	}
 	
 	std::cout << "part1 : " << part1 << std::endl;

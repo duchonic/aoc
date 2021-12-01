@@ -14,3 +14,5 @@ build/
 2021/day04/build/
 2021/day05/build/
 2021/day06/build/
+*.DS_Store
+2021/.DS_Store

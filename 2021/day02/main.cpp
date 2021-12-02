@@ -14,7 +14,11 @@ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"
 #include "help/string.h"
 #include "help/file.h"
 #include "help/log.h"
+#include "help/plot.h"
 
+
+std::vector<double> x ;
+std::vector<double> y ;
 
 static int32_t calcPath( std::vector<std::string> input, bool aim) {
 	typedef struct {
@@ -28,7 +32,7 @@ static int32_t calcPath( std::vector<std::string> input, bool aim) {
 		.y = 0,
 		.aim = 0,
 	};
-
+	int32_t linenumber = 0;
 	for (auto line: input) {
 		std::stringstream s(line);
 		std::string direction;
@@ -59,14 +63,26 @@ static int32_t calcPath( std::vector<std::string> input, bool aim) {
 				pos.y += distance;
 			}
 		}
+		
+		if (aim) {
+			x.push_back(linenumber++);
+			y.push_back(pos.y);
+		}
+		else {
+		}
 	}
+
 	return (pos.x * pos.y);
 }
 
 
 int main() {
 	std::vector<std::string> data = readstuff();
+
 	std::cout << "part1 : " << calcPath(data, false) << std::endl;
 	std::cout << "part2 : " << calcPath(data, true) << std::endl;
+
+	plotter(x,y);
+
 	return 0;
 }

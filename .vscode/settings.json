@@ -7,6 +7,15 @@
         "iostream": "cpp",
         "iosfwd": "cpp",
         "algorithm": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "__functional_03": "cpp",
+        "__string": "cpp",
+        "deque": "cpp",
+        "filesystem": "cpp",
+        "forward_list": "cpp",
+        "functional": "cpp",
+        "list": "cpp",
+        "regex": "cpp",
+        "system_error": "cpp"
     }
 }

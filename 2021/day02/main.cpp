@@ -15,40 +15,14 @@ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"
 #include "help/file.h"
 #include "help/log.h"
 
-typedef struct {
-	int32_t x;
-	int32_t y;
-	int32_t aim;
-}Position;
 
-static int32_t calcPath( std::vector<std::string> input) {
-	Position pos = {
-		.x = 0,
-		.y = 0,
-	};
+static int32_t calcPath( std::vector<std::string> input, bool aim) {
+	typedef struct {
+		int32_t x;
+		int32_t y;
+		int32_t aim;
+	}Position;
 
-	for (auto line: input) {
-		std::stringstream s(line);
-		std::string direction;
-		int16_t distance;
-
-		s >> direction;
-		s >> distance;
-		
-		if (direction.compare("forward") == 0) {
-			pos.x += distance;
-		}
-		else if (direction.compare("up") == 0) {
-			pos.y -= distance;
-		}
-		else if (direction.compare("down") == 0) {
-			pos.y += distance;
-		}
-	}
-	log("endpos x:" << pos.x << " y:" << pos.y);
-	return (pos.x * pos.y);
-}
-static int32_t calcPath2( std::vector<std::string> input) {
 	Position pos = {
 		.x = 0,
 		.y = 0,
@@ -63,29 +37,36 @@ static int32_t calcPath2( std::vector<std::string> input) {
 		s >> direction;
 		s >> distance;
 		
-		if (direction.compare("forward") == 0) {
+		if (direction == "forward") {
 			pos.x += distance;
-			pos.y += pos.aim * distance;
+			if (aim) {
+				pos.y += pos.aim * distance;
+			}
 		}
-		else if (direction.compare("up") == 0) {
-			pos.aim -= distance;
+		else if (direction == "up") {
+			if (aim) {	
+				pos.aim -= distance;
+			}
+			else {
+				pos.y -= distance;
+			}
 		}
-		else if (direction.compare("down") == 0) {
-			pos.aim += distance;
+		else if (direction == "down") {
+			if (aim) {
+				pos.aim += distance;
+			}
+			else {
+				pos.y += distance;
+			}
 		}
 	}
-	log("endpos x:" << pos.x << " y:" << pos.y);
 	return (pos.x * pos.y);
 }
 
 
 int main() {
-
-	int16_t part2 = 0;
-	
 	std::vector<std::string> data = readstuff();
-	std::cout << "part1 : " << calcPath(data) << std::endl;
-	std::cout << "part2 : " << calcPath2(data) << std::endl;
-
-	return 1;
+	std::cout << "part1 : " << calcPath(data, false) << std::endl;
+	std::cout << "part2 : " << calcPath(data, true) << std::endl;
+	return 0;
 }

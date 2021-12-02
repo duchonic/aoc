@@ -1,4 +1,4 @@
 #pragma once
 
 
-#define log(stuff) std::cout << stuff << std::endl;
+#define logger(stuff) std::cout << stuff << std::endl;

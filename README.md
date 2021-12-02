@@ -16,3 +16,12 @@ set number
 :map <F6> :w <CR>:! cd build; make -j4; ./test --durations yes; cd ..<CR>
 :map <F7> :w <CR>:! cd build; make -j4; ./app < ../test.txt; cd ..<CR>
 ```
+
+
+## Graphical interface
+
+## Graphs
+
+2021 day2, a submarine that floats throu the ocean.
+
+- [ ] Graph xy for position

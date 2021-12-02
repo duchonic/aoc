@@ -19,3 +19,6 @@ part1 : 0
 part2 : 0
 (base) ~/Documents/work/aoc/2021/day01/build (master ✘)✖✹✭ ᐅ 
 </pre>
+
+
+

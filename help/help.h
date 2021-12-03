@@ -7,7 +7,9 @@
 #include <algorithm>
 #include <cmath>
 #include <bitset>
-
+#include <functional>
+#include <numeric>
+#include <iomanip>
 
 #define ar array
 #define ll long long

@@ -8,7 +8,5 @@ void plotter(std::vector<double> x, std::vector<double> y) {
     using namespace matplot;
 	plot(x, y);
     show();
-	while(true) {
-		;
-	}
+	while(true) ;
 }

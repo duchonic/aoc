@@ -2,6 +2,16 @@
 
 #include <string>
 
+std::vector<std::bitset<16>> readstuffbitset() {
+	std::vector<std::bitset<16>> data;
+	std::string a;
+	while ( std::getline(std::cin, a)) {
+		std::bitset<16> b{a};
+		data.push_back(b);
+	}
+	return data;
+}
+
 std::vector<std::string> readstuff() {
 	std::vector<std::string> data;
 	std::string a;

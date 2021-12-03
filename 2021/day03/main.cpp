@@ -13,51 +13,109 @@ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"
 #include "help/string.h"
 #include "help/file.h"
 
+#include <functional>
+#include <numeric>
+#include <iomanip>
 
-//std::vector<int> ones{0,0,0,0,0,0,0,0,0,0,0,0};
-std::vector<int> ones{0,0,0,0,0};
+bool checkEqual(std::vector<std::bitset<16>> input, uint8_t checkbit){
+	if (input.size()%2) {
+		return 0;
+	}
+	int count = 0;
+	for (auto nr : input) {
+		if (nr.test(checkbit)){
+			count++;
+		}
+	}
+	return (count == input.size()/2);
+}
+bool checkEpsilon(std::vector<std::bitset<16>> input, uint8_t checkbit){
+	int count = 0;
+	for (auto nr : input) {
+		if (nr.test(checkbit)){
+			count++;
+		}
+	}
+	return (count <= input.size()/2);
+}
+bool checkGamma(std::vector<std::bitset<16>> input, uint8_t checkbit){
+	int count = 0;
+	for (auto nr : input) {
+		if (nr.test(checkbit)){
+			count++;
+		}
+	}
+	return (count > input.size()/2);
+}
+
+void showData(std::vector<std::bitset<16>> data) {
+	int16_t linenumber = 1;
+	for (auto line: data) {
+		std::cout << std::setw(4) << linenumber++ << ' ' << line << ' ' << line.to_ulong() << std::endl;
+	}
+}
+
 
 int main() {
-	std::vector<std::string> data = readstuff();
+	std::vector<std::bitset<16>> data = readstuffbitset();
+	std::vector<std::bitset<16>> secondpart{data};
 
 	int16_t part1 = 0;
 	int16_t part2 = 0;
-	int16_t linenumber = 0;
-	for (auto line: data) {
-		std::cout << linenumber++ << ' ' << line << std::endl;
 
-		uint8_t index = 0;
-		for (char ch : line) {
-			if (ch == '1') {
-				ones.at(index)++;
-			}
-			index++;
-		}	
-	}
-	
-	std::cout << "part2 : " << part2 << std::endl;
+	std::bitset<16> gamma = 0;
+	std::bitset<16> epsilon = 0;
+	std::bitset<16> equal = 0;
 
-	std::bitset<5> gamma = 0;
-	std::bitset<5> epsilon = 0;
-	std::bitset<5> equal = 0;
-	for (int index = 0; index < ones.size() ; index++) {
-		std::cout << ones.at(index) << std::endl;
-		if (ones.at(index) > 5) {
-			gamma.set(ones.size()-index-1);
-		}
-		else {
-			epsilon.set(ones.size()-index-1);
-		}
-
-		if (ones.at(index) == 5) {
-			std::cout << "equal" << std::endl;
-			equal.set(ones.size()-index-1);
-		}	
+	for (int bit = 0; bit <= 11; bit++) {
+		gamma.set(bit, checkGamma(data, bit));
+		epsilon.set(bit, checkEpsilon(data, bit));
+		equal.set(bit, checkEqual(data, bit));
 	}
 	std::cout << gamma << " " << gamma.to_ulong() << std::endl;
 	std::cout << epsilon << " " << epsilon.to_ulong() << std::endl;
 	std::cout << equal << " " << equal.to_ulong() << std::endl;
 	std::cout << "part1 : " << gamma.to_ulong() *  epsilon.to_ulong() << std::endl;
 
-	return 1;
+	//part 2	
+	for (int bit = 11; bit >= 0; bit--){
+		std::cout << "checkbit:" << bit << std::endl;
+		if (!checkEqual(data,bit)) { 
+			if (checkGamma(data, bit)) {
+				auto iterator = std::remove_if(data.begin(), data.end(), [bit](std::bitset<16> i){return !i.test(bit);} );
+				data.erase(iterator, data.end());
+			}
+			else {
+				auto iterator = std::remove_if(data.begin(), data.end(), [bit](std::bitset<16> i){return i.test(bit);} );
+				data.erase(iterator, data.end());
+			}
+		}
+		if (data.size() == 2) {
+			showData(data);
+			break;
+		}
+	}
+
+	//part 2	
+	for (int bit = 11; bit >= 0; bit--){
+		std::cout << "checkbit:" << bit << std::endl;
+		if (!checkEqual(secondpart,bit)) { 
+			if (checkGamma(secondpart, bit)) {
+				auto iterator = std::remove_if(secondpart.begin(), secondpart.end(), [bit](std::bitset<16> i){return i.test(bit);} );
+				secondpart.erase(iterator, secondpart.end());
+			}
+			else {
+				auto iterator = std::remove_if(secondpart.begin(), secondpart.end(), [bit](std::bitset<16> i){return !i.test(bit);} );
+				secondpart.erase(iterator, secondpart.end());
+			}
+		}
+		if (secondpart.size() == 2) {
+			showData(secondpart);
+			break;
+		}
+	}
+
+	std::cout << "part2 : " << data.at(1).to_ulong() * secondpart.at(1).to_ulong() << std::endl;
+
+	return 0;
 }

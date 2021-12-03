@@ -8,12 +8,10 @@ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"
 
 #include "help/help.h"
 #include "help/math.h"
-#include "help/bitwise.h"
 #include "help/prime.h"
 #include "help/geometry.h"
 #include "help/string.h"
 #include "help/file.h"
-#include <cmath>
 
 
 //std::vector<int> ones{0,0,0,0,0,0,0,0,0,0,0,0};

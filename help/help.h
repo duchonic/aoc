@@ -5,13 +5,14 @@
 #include <vector>
 #include <set>
 #include <algorithm>
+#include <cmath>
+#include <bitset>
 
 
 #define ar array
 #define ll long long
 #define ld long double
 #define sza(x) ((int)x.size())
-#define all(a) (a).begin(), (a).end()
 
 #define PI 3.1415926535897932384626433832795l 
 const int MAX_N = 1e5 + 5;

@@ -56,7 +56,6 @@ int main() {
 				start = line.second;
 				end = line.first;
 			}
-			logger("start: " << start.first << '/' << start.second);
 			diagonal = true;
 		}
 
@@ -73,7 +72,26 @@ int main() {
 			}
 		}
 		else {
+			int y = start.second;
+			bool goesdown = true;
+			if ( start.second > end.second ) {
+				goesdown = false;
+			}
+			for (int x = start.first; x <= end.first; x++) {
+				std::pair<int,int> check{x,y};
 
+				if (goesdown) {
+					y++;
+				}
+				else {
+					y--;
+				}
+				if(map.contains(check)) {
+					map[check] += 1;
+				} else {
+					map[check] = 1;
+				}
+			}
 		}
 		
 		
@@ -84,10 +102,22 @@ int main() {
 	for (auto pixel : map) {
 		if (pixel.second > 1) {
 			part1++;
-			//logger(pixel.first.first << ' ' << pixel.first.second << " count:" << pixel.second);
+			logger(pixel.first.first << ' ' << pixel.first.second << " count:" << pixel.second);
 		}
 	}
 	logger("part1:" << part1);
+
+	for (int y=0; y<=100; y++) {
+		for (int x=0; x<=100; x++) {
+			if (map.contains(std::make_pair(x,y))) {
+				std::cout << map[std::make_pair(x,y)];
+			}
+			else{
+				std::cout << '.';
+			}
+		}
+		std::cout << std::endl;
+	}
 
 	return 0;
 }

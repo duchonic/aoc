@@ -48,6 +48,15 @@ int main() {
 			}
 		}
 		else {
+			if (line.first.first < line.second.first) {
+				start = line.first;
+				end = line.second;
+			}
+			else {
+				start = line.second;
+				end = line.first;
+			}
+			logger("start: " << start.first << '/' << start.second);
 			diagonal = true;
 		}
 

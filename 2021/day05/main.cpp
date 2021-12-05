@@ -12,110 +12,73 @@ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"
 #include "help/geometry.h"
 #include "help/string.h"
 #include "help/file.h"
-
+#include "help/log.h"
 #include <functional>
 #include <numeric>
 #include <iomanip>
-
-bool checkEqual(std::vector<std::bitset<16>> input, uint8_t checkbit){
-	if (input.size()%2) {
-		return 0;
-	}
-	int count = 0;
-	for (auto nr : input) {
-		if (nr.test(checkbit)){
-			count++;
-		}
-	}
-	return (count == input.size()/2);
-}
-bool checkEpsilon(std::vector<std::bitset<16>> input, uint8_t checkbit){
-	int count = 0;
-	for (auto nr : input) {
-		if (nr.test(checkbit)){
-			count++;
-		}
-	}
-	return (count <= input.size()/2);
-}
-bool checkGamma(std::vector<std::bitset<16>> input, uint8_t checkbit){
-	int count = 0;
-	for (auto nr : input) {
-		if (nr.test(checkbit)){
-			count++;
-		}
-	}
-	return (count > input.size()/2);
-}
-
-void showData(std::vector<std::bitset<16>> data) {
-	int16_t linenumber = 1;
-	for (auto line: data) {
-		std::cout << std::setw(4) << linenumber++ << ' ' << line << ' ' << line.to_ulong() << std::endl;
-	}
-}
+#include <map>
 
 
 int main() {
-	std::vector<std::bitset<16>> data = readstuffbitset();
-	std::vector<std::bitset<16>> secondpart{data};
+	auto data = readLines();
+    std::map<std::pair<int,int>, int> map {};
+	for ( auto line : data) {
+		std::pair<int,int> start{0,0};
+		std::pair<int,int> end{0,0};
 
-	int16_t part1 = 0;
-	int16_t part2 = 0;
-
-	std::bitset<16> gamma = 0;
-	std::bitset<16> epsilon = 0;
-	std::bitset<16> equal = 0;
-
-	for (int bit = 0; bit <= 11; bit++) {
-		gamma.set(bit, checkGamma(data, bit));
-		epsilon.set(bit, checkEpsilon(data, bit));
-		equal.set(bit, checkEqual(data, bit));
-	}
-	std::cout << gamma << " " << gamma.to_ulong() << std::endl;
-	std::cout << epsilon << " " << epsilon.to_ulong() << std::endl;
-	std::cout << equal << " " << equal.to_ulong() << std::endl;
-	std::cout << "part1 : " << gamma.to_ulong() *  epsilon.to_ulong() << std::endl;
-
-	//part 2	
-	for (int bit = 11; bit >= 0; bit--){
-		std::cout << "checkbit:" << bit << std::endl;
-		if (!checkEqual(data,bit)) { 
-			if (checkGamma(data, bit)) {
-				auto iterator = std::remove_if(data.begin(), data.end(), [bit](std::bitset<16> i){return !i.test(bit);} );
-				data.erase(iterator, data.end());
+		bool diagonal = false;
+		if (line.first.first == line.second.first ) {
+			if (line.first.second < line.second.second) {
+				start = std::make_pair(line.first.first, line.first.second);
+				end = std::make_pair(line.second.first, line.second.second);
 			}
 			else {
-				auto iterator = std::remove_if(data.begin(), data.end(), [bit](std::bitset<16> i){return i.test(bit);} );
-				data.erase(iterator, data.end());
+				start = std::make_pair(line.first.first, line.second.second);
+				end = std::make_pair(line.second.first, line.first.second);
 			}
 		}
-		if (data.size() == 2) {
-			showData(data);
-			break;
-		}
-	}
-
-	//part 2	
-	for (int bit = 11; bit >= 0; bit--){
-		std::cout << "checkbit:" << bit << std::endl;
-		if (!checkEqual(secondpart,bit)) { 
-			if (checkGamma(secondpart, bit)) {
-				auto iterator = std::remove_if(secondpart.begin(), secondpart.end(), [bit](std::bitset<16> i){return i.test(bit);} );
-				secondpart.erase(iterator, secondpart.end());
+		else if (line.first.second == line.second.second) {
+			if (line.first.first < line.second.first) {
+				start = std::make_pair(line.first.first, line.first.second);
+				end = std::make_pair(line.second.first, line.second.second);
 			}
 			else {
-				auto iterator = std::remove_if(secondpart.begin(), secondpart.end(), [bit](std::bitset<16> i){return !i.test(bit);} );
-				secondpart.erase(iterator, secondpart.end());
+				start = std::make_pair(line.second.first, line.first.second);
+				end = std::make_pair(line.first.first, line.second.second);
 			}
 		}
-		if (secondpart.size() == 2) {
-			showData(secondpart);
-			break;
+		else {
+			diagonal = true;
 		}
+
+		if (!diagonal) {
+			for ( int y = start.second ; y <= end.second; y++) {
+				for (int x = start.first; x <= end.first; x++) {
+					std::pair<int,int> check{x,y};
+					if(map.contains(check)) {
+						map[check] += 1;
+					} else {
+						map[check] = 1;
+					}
+				}
+			}
+		}
+		else {
+
+		}
+		
+		
+
 	}
 
-	std::cout << "part2 : " << data.at(1).to_ulong() * secondpart.at(1).to_ulong() << std::endl;
+	int part1 = 0;
+	for (auto pixel : map) {
+		if (pixel.second > 1) {
+			part1++;
+			//logger(pixel.first.first << ' ' << pixel.first.second << " count:" << pixel.second);
+		}
+	}
+	logger("part1:" << part1);
 
 	return 0;
 }

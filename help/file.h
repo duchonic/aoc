@@ -2,6 +2,28 @@
 
 #include <string>
 
+
+std::vector < std::pair< std::pair<int,int>, std::pair<int,int>>> readLines() {
+	std::vector< std::pair< std::pair<int,int>, std::pair<int,int>>> retval;
+	std::string line;
+	while (std::getline(std::cin, line)) {
+		std::stringstream ss(line);
+		std::pair<int,int> start;
+		std::pair<int,int> end;
+		std::string dummystring;
+		char dummychar;
+		ss >> start.first;
+		ss >> dummychar;
+		ss >> start.second;
+		ss >> dummystring;
+		ss >> end.first;
+		ss >> dummychar;
+		ss >> end.second;
+		retval.push_back(std::make_pair(start, end));
+	}
+	return retval;
+}
+
 std::vector<std::bitset<16>> readstuffbitset() {
 	std::vector<std::bitset<16>> data;
 	std::string a;

@@ -5,7 +5,8 @@
 #include <vector>
 #include <set>
 
-void split_str( std::string const &str, const char delim, std::vector<std::string> &out) {  
+void split_str( std::string const &str, const char delim, 
+                std::vector<std::string> &out) {  
     // create a stream from the string  
     std::stringstream s(str);  
         

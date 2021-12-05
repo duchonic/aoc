@@ -13,14 +13,51 @@ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"
 #include "help/string.h"
 #include "help/file.h"
 #include "help/log.h"
+#include "help/string.h"
 
-#include "matplot/matplot.h"
+
+std::vector< std::array< std::array<int, 5> , 5>> cards;
+
+static void printCards() {
+	for (auto card : cards){
+		logger("cards:")
+		for (auto line : card) {
+			for (auto nr : line) {
+				std::cout << nr << ' '; 
+			}
+			std::cout << std::endl;
+		}
+	}
+}
 
 int main() {
+	std::vector<std::string> data = readstuff();
+	std::vector<std::string> sequence;
 
-	std::vector<std::bitset<16>> data = readstuffbitset();
+	split_str(data.front(), ',', sequence);
+	logger("sequence:");
+	for (auto nr : sequence) {
+		std::cout << nr << ' ';
+	}
+	std::cout << std::endl;
 
-	showData(data);	
+	int actualCard = -1;
+	for (int line=2; line < data.size(); line+= 6) {
+		std::array<std::array<int, 5>,5> empty;
+		cards.push_back(empty);
+		actualCard++;	
+		for (int y=0; y<5; y++) {
+			std::stringstream ss(data.at(line+y));
+
+			for (int count=0; count < 5; count++) {
+				int number;
+				ss >> number;
+				cards.at(actualCard).at(y).at(count) = number;
+			}
+		}
+	}
+
+	printCards();
 
 	int16_t part1 = 0;
 	int16_t part2 = 0;
@@ -28,15 +65,5 @@ int main() {
 	std::cout << "part1 : " << part1 << std::endl;
 	std::cout << "part2 : " << part2 << std::endl;
 
-    using namespace matplot;
-    std::vector<std::vector<double>> C = {
-        {0, 2, 4, 6}, {8, 10, 12, 14}, {16, 18, 20, 22}};
-    imagesc(5, 8, 3, 6, C);
-
-    show();
-
-	while (true) {
-		;
-	}
 	return 0;
 }

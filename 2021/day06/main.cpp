@@ -4,7 +4,7 @@
   /__/_  _\__| \__,_|  _\__|  _|_|_  \___/ |_||_|  _(_)_  \__|_  \___/ \__,_|  \___|  /__/_
 _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""|
 "`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-'
-    */
+	*/
 
 #include "help/help.h"
 #include "help/math.h"
@@ -42,28 +42,31 @@ int main() {
 	};
 
 
-	std::vector<uint64_t> world{0,0,0,0,0,0,0,0,0};
-	
+	std::vector<uint64_t> world{ 0,0,0,0,0,0,0,0,0 };
+
 	for (auto fish : data) {
 		world.at(fish)++;
 	}
 
 	int days = 0;
-	while (days++ < 182) {
-    //for (auto days : std::ranges::iota_view{0, 256}) {
-		int newfish = world.at(0);
+	while (days++ < 256) {
+		uint64_t newfish = world.at(0);
 		world.erase(world.begin());
 		world.push_back(newfish);
 		world.at(6) += newfish;
 
-        std::cout << "d:" << days << ' ';
-        for (auto fish : world) {
-            std::cout << fish << ' ';
-        }
-        std::cout << std::endl;
+		std::cout << "d:" << days << ' ';
+		for (auto fish : world) {
+			std::cout << fish << ' ';
+		}
+		std::cout << std::endl;
 
-        uint64_t sum =  accumulate(world.begin(), world.end(), 0);
-        std::cout << "part1 : " << sum << std::endl;
+		//  accumulate(world.begin(), world.end(), 0);
+		uint64_t sum = 0; 
+		for (uint64_t fish : world) {
+			sum += fish;
+		}
+		std::cout << "part1 : " << sum << std::endl;
 
 
 	}

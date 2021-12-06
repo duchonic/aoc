@@ -28,8 +28,7 @@ jobs:
       
     - name: day1
       working-directory: ${{github.workspace}}/build
-      run: cat ../2021/day01/readme.md
-           ./2021/day01/day01 < ../2021/day01/data.txt
+      run: ./2021/day01/day01 < ../2021/day01/data.txt
       
 
     - name: day5

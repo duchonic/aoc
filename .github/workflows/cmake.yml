@@ -21,12 +21,18 @@ jobs:
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-
-    - name: day1
-      working-directory: ${{github.workspace}}/build
-      run: ./2021/day01/day01 < ../2021/day01/data.txt
       
     - name: Test
       working-directory: ${{github.workspace}}/build
       run: ./test -s -r compact -d yes
+      
+    - name: day1
+      working-directory: ${{github.workspace}}/build
+      run: ./2021/day01/day01 < ../2021/day01/data.txt
+    - name: day5
+      working-directory: ${{github.workspace}}/build
+      run: ./2021/day05/day05 < ../2021/day05/data.txt
+    - name: day6
+      working-directory: ${{github.workspace}}/build
+      run: ./2021/day06/day06
       

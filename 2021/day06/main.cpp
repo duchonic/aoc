@@ -18,7 +18,6 @@ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"
 #include <numeric>
 #include <iomanip>
 #include <algorithm> // for sort
-#include <execution> // for parallel execution
 
 int main() {
 
@@ -43,47 +42,30 @@ int main() {
 	};
 
 
-	std::vector<int64_t> world1{0,0,0,0,0,0,0,0,0};
-	std::vector<int64_t> world2{0,0,0,0,0,0,0,0,0};
+	std::vector<uint64_t> world{0,0,0,0,0,0,0,0,0};
 	
-	for (auto fish : data1) {
-		world1.at(fish)++;
+	for (auto fish : data) {
+		world.at(fish)++;
 	}
 
 	int days = 0;
-	while (days++ < 256) {
-		int newfish = world1.at(0);
-		world1.erase(world1.begin());
-		world1.push_back(newfish);
-		world1.at(6) += newfish;
-	}
+	while (days++ < 182) {
+    //for (auto days : std::ranges::iota_view{0, 256}) {
+		int newfish = world.at(0);
+		world.erase(world.begin());
+		world.push_back(newfish);
+		world.at(6) += newfish;
 
-	for (auto fish : world1) {
-		std::cout << fish << ' ';
-	}
-	std::cout << std::endl;
+        std::cout << "d:" << days << ' ';
+        for (auto fish : world) {
+            std::cout << fish << ' ';
+        }
+        std::cout << std::endl;
 
-	for (auto fish : data2) {
-		world2.at(fish)++;
-	}
+        uint64_t sum =  accumulate(world.begin(), world.end(), 0);
+        std::cout << "part1 : " << sum << std::endl;
 
-	days = 0;
-	while (days++ < 256) {
-		int newfish = world2.at(0);
-		world2.erase(world2.begin());
-		world2.push_back(newfish);
-		world2.at(6) += newfish;
-	}
 
-	for (auto fish : world2) {
-		std::cout << fish << ' ';
 	}
-	std::cout << std::endl;
-	
-	std::cout << std::endl;
-	int64_t sum1 =  accumulate(world1.begin(), world1.end(), 0);
-	int64_t sum2 =  accumulate(world2.begin(), world2.end(), 0);
-	std::cout << "part1 : " << sum1 << ' ' << sum2 << std::endl;
-
 	return 0;
 }

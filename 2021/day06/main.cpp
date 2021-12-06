@@ -54,21 +54,36 @@ int main() {
 		world.erase(world.begin());
 		world.push_back(newfish);
 		world.at(6) += newfish;
+	
+		if (days == 80) {
+			std::cout << "d:" << days << ' ';
+			for (auto fish : world) {
+				std::cout << fish << ' ';
+			}
+			std::cout << std::endl;
 
-		std::cout << "d:" << days << ' ';
-		for (auto fish : world) {
-			std::cout << fish << ' ';
+			//  accumulate(world.begin(), world.end(), 0);
+			uint64_t sum = 0; 
+			for (uint64_t fish : world) {
+				sum += fish;
+			}
+			std::cout << "part1 : " << sum << std::endl;
 		}
-		std::cout << std::endl;
+		
+		if (days == 256) {
+			std::cout << "d:" << days << ' ';
+			for (auto fish : world) {
+				std::cout << fish << ' ';
+			}
+			std::cout << std::endl;
 
-		//  accumulate(world.begin(), world.end(), 0);
-		uint64_t sum = 0; 
-		for (uint64_t fish : world) {
-			sum += fish;
+			//  accumulate(world.begin(), world.end(), 0);
+			uint64_t sum = 0; 
+			for (uint64_t fish : world) {
+				sum += fish;
+			}
+			std::cout << "part2 : " << sum << std::endl;
 		}
-		std::cout << "part1 : " << sum << std::endl;
-
-
 	}
 	return 0;
 }

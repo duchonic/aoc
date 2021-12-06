@@ -14,15 +14,14 @@ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"
 #include "help/file.h"
 #include "help/log.h"
 
+
 #include <functional>
 #include <numeric>
 #include <iomanip>
-#include <algorithm> // for sort
+#include <algorithm>
+#include <list>
 
 int main() {
-
-	//std::vector<uint8_t> data{3,4,3,1,2};
-
 	std::vector<uint8_t> data{
 		3,3,5,1,1,3,4,2,3,4,3,1,1,3,3,1,5,4,4,1,
 		4,1,1,1,3,3,2,3,3,4,2,5,1,4,1,2,2,4,2,5,
@@ -48,8 +47,20 @@ int main() {
 		world.at(fish)++;
 	}
 
-	int days = 0;
-	while (days++ < 256) {
+	/* first try */
+	//int days = 0;
+	//while (days++ < 256) {
+
+	/* seconde try */
+	//std::list<int> l(256);
+	//std::iota(l.begin(),l.end(),1);
+	//for( int days : l) {
+
+	/* third try */
+	for ( RANGE(days, 1, 256)) {
+
+	/* last try --> needs some additional thinking.... */
+	//for (auto days : range<unsigned>(1,256)) {
 		uint64_t newfish = world.at(0);
 		world.erase(world.begin());
 		world.push_back(newfish);

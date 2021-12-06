@@ -23,44 +23,67 @@ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"
 int main() {
 
 	//std::vector<uint8_t> data{3,4,3,1,2};
-	std::vector<int> data{3,3,5,1,1,3,4,2,3,4,3,1,1,3,3,1,5,4,4,1,4,1,1,1,3,3,2,3,3,4,2,5,1,4,1,2,2,4,2,5,1,2,2,1,1,1,1,4,5,4,3,1,4,4,4,5,1,1,4,3,4,2,1,1,1,1,5,2,1,4,2,4,2,5,5,5,3,3,5,4,5,1,1,5,5,5,2,1,3,1,1,2,2,2,2,1,1,2,1,5,1,2,1,2,5,5,2,1,1,4,2,1,4,2,1,1,1,4,2,5,1,5,1,1,3,1,4,3,1,3,2,1,3,1,4,1,2,1,5,1,2,1,4,4,1,3,1,1,1,1,1,5,2,1,5,5,5,3,3,1,2,4,3,2,2,2,2,2,4,3,4,4,4,1,2,2,3,1,1,4,1,1,1,2,1,4,2,1,2,1,1,2,1,5,1,1,3,1,4,3,2,1,1,1,5,4,1,2,5,2,2,1,1,1,1,2,3,3,2,5,1,2,1,2,3,4,3,2,1,1,2,4,3,3,1,1,2,5,1,3,3,4,2,3,1,2,1,4,3,2,2,1,1,2,1,4,2,4,1,4,1,4,4,1,4,4,5,4,1,1,1,3,1,1,1,4,3,5,1,1,1,3,4,1,1,4,3,1,4,1,1,5,1,2,2,5,5,2,1,5};
-	int part1 = 0;
-	int part2 = 0;
 
-	int days = 0;
-	double oldsize;
-	double oldfactor;
-	while (days++ < 256) {
+	std::vector<uint8_t> data{
+		3,3,5,1,1,3,4,2,3,4,3,1,1,3,3,1,5,4,4,1,
+		4,1,1,1,3,3,2,3,3,4,2,5,1,4,1,2,2,4,2,5,
+		1,2,2,1,1,1,1,4,5,4,3,1,4,4,4,5,1,1,4,3,
+		4,2,1,1,1,1,5,2,1,4,2,4,2,5,5,5,3,3,5,4,
+		5,1,1,5,5,5,2,1,3,1,1,2,2,2,2,1,1,2,1,5,
+		1,2,1,2,5,5,2,1,1,4,2,1,4,2,1,1,1,4,2,5,
+		1,5,1,1,3,1,4,3,1,3,2,1,3,1,4,1,2,1,5,1,
+		2,1,4,4,1,3,1,1,1,1,1,5,2,1,5,5,5,3,3,1,
+		2,4,3,2,2,2,2,2,4,3,4,4,4,1,2,2,3,1,1,4,
+		1,1,1,2,1,4,2,1,2,1,1,2,1,5,1,1,3,1,4,3,
+		2,1,1,1,5,4,1,2,5,2,2,1,1,1,1,2,3,3,2,5,
+		1,2,1,2,3,4,3,2,1,1,2,4,3,3,1,1,2,5,1,3,
+		3,4,2,3,1,2,1,4,3,2,2,1,1,2,1,4,2,4,1,4,
+		1,4,4,1,4,4,5,4,1,1,1,3,1,1,1,4,3,5,1,1,
+		1,3,4,1,1,4,3,1,4,1,1,5,1,2,2,5,5,2,1,5,
+	};
 
-		if (days%32 == 0) {
-			double factor = double(data.size()/oldsize);
-			std::cout << days << " total : " << data.size() <<  " diff: " << data.size() - oldsize << " factor:"  << factor << " diff " << factor-oldfactor << std::endl;
-			oldfactor = factor;
-			oldsize = data.size();
-		}
-		int newfish = 0;
 
-    	std::transform(data.begin(), data.end(), data.begin(),
-                   [&newfish](uint8_t i) -> uint8_t { 
-					   i--;
-					   if (i==255) {
-						   i = 6;
-						   newfish++;
-					   }
-					   return i; });
-		//std::for_each(data.begin(), data.end(), myfunction);
-		//std::cout << std::to_string( data.at(0) ) << std::endl;
-
-		for (int n=0; n < newfish; n++) {
-			data.push_back(8);
-			//std::cout << 8 << ',';
-		}
-		//std::cout << std::endl;
-
+	std::vector<int64_t> world1{0,0,0,0,0,0,0,0,0};
+	std::vector<int64_t> world2{0,0,0,0,0,0,0,0,0};
+	
+	for (auto fish : data1) {
+		world1.at(fish)++;
 	}
 
-	std::cout << "part1 : " << data.size() << std::endl;
-	std::cout << "part2 : " << part2 << std::endl;
+	int days = 0;
+	while (days++ < 256) {
+		int newfish = world1.at(0);
+		world1.erase(world1.begin());
+		world1.push_back(newfish);
+		world1.at(6) += newfish;
+	}
+
+	for (auto fish : world1) {
+		std::cout << fish << ' ';
+	}
+	std::cout << std::endl;
+
+	for (auto fish : data2) {
+		world2.at(fish)++;
+	}
+
+	days = 0;
+	while (days++ < 256) {
+		int newfish = world2.at(0);
+		world2.erase(world2.begin());
+		world2.push_back(newfish);
+		world2.at(6) += newfish;
+	}
+
+	for (auto fish : world2) {
+		std::cout << fish << ' ';
+	}
+	std::cout << std::endl;
+	
+	std::cout << std::endl;
+	int64_t sum1 =  accumulate(world1.begin(), world1.end(), 0);
+	int64_t sum2 =  accumulate(world2.begin(), world2.end(), 0);
+	std::cout << "part1 : " << sum1 << ' ' << sum2 << std::endl;
 
 	return 0;
 }

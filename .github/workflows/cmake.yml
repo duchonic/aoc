@@ -28,17 +28,15 @@ jobs:
       
     - name: day1
       working-directory: ${{github.workspace}}/build
+      run: cat ../2021/day01/readme.md
       run: ./2021/day01/day01 < ../2021/day01/data.txt
+      
+
     - name: day5
       working-directory: ${{github.workspace}}/build
       run: ./2021/day05/day05 < ../2021/day05/data.txt
+
     - name: day6
       working-directory: ${{github.workspace}}/build
       run: ./2021/day06/day06
     
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./out  # default: public
-      

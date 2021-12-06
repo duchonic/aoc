@@ -38,7 +38,7 @@ static int16_t sonarScope(std::vector<int16_t> input, int8_t width) {
 			lastNumber = actualNumber;
 		}
 		catch(const std::out_of_range& e) {
-			log("this is the end...");
+			logger("this is the end...");
 			break;
 		}
 		lineNumber++;

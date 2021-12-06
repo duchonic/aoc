@@ -12,110 +12,55 @@ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"
 #include "help/geometry.h"
 #include "help/string.h"
 #include "help/file.h"
+#include "help/log.h"
 
 #include <functional>
 #include <numeric>
 #include <iomanip>
-
-bool checkEqual(std::vector<std::bitset<16>> input, uint8_t checkbit){
-	if (input.size()%2) {
-		return 0;
-	}
-	int count = 0;
-	for (auto nr : input) {
-		if (nr.test(checkbit)){
-			count++;
-		}
-	}
-	return (count == input.size()/2);
-}
-bool checkEpsilon(std::vector<std::bitset<16>> input, uint8_t checkbit){
-	int count = 0;
-	for (auto nr : input) {
-		if (nr.test(checkbit)){
-			count++;
-		}
-	}
-	return (count <= input.size()/2);
-}
-bool checkGamma(std::vector<std::bitset<16>> input, uint8_t checkbit){
-	int count = 0;
-	for (auto nr : input) {
-		if (nr.test(checkbit)){
-			count++;
-		}
-	}
-	return (count > input.size()/2);
-}
-
-void showData(std::vector<std::bitset<16>> data) {
-	int16_t linenumber = 1;
-	for (auto line: data) {
-		std::cout << std::setw(4) << linenumber++ << ' ' << line << ' ' << line.to_ulong() << std::endl;
-	}
-}
-
+#include <algorithm> // for sort
+#include <execution> // for parallel execution
 
 int main() {
-	std::vector<std::bitset<16>> data = readstuffbitset();
-	std::vector<std::bitset<16>> secondpart{data};
 
-	int16_t part1 = 0;
-	int16_t part2 = 0;
+	//std::vector<uint8_t> data{3,4,3,1,2};
+	std::vector<int> data{3,3,5,1,1,3,4,2,3,4,3,1,1,3,3,1,5,4,4,1,4,1,1,1,3,3,2,3,3,4,2,5,1,4,1,2,2,4,2,5,1,2,2,1,1,1,1,4,5,4,3,1,4,4,4,5,1,1,4,3,4,2,1,1,1,1,5,2,1,4,2,4,2,5,5,5,3,3,5,4,5,1,1,5,5,5,2,1,3,1,1,2,2,2,2,1,1,2,1,5,1,2,1,2,5,5,2,1,1,4,2,1,4,2,1,1,1,4,2,5,1,5,1,1,3,1,4,3,1,3,2,1,3,1,4,1,2,1,5,1,2,1,4,4,1,3,1,1,1,1,1,5,2,1,5,5,5,3,3,1,2,4,3,2,2,2,2,2,4,3,4,4,4,1,2,2,3,1,1,4,1,1,1,2,1,4,2,1,2,1,1,2,1,5,1,1,3,1,4,3,2,1,1,1,5,4,1,2,5,2,2,1,1,1,1,2,3,3,2,5,1,2,1,2,3,4,3,2,1,1,2,4,3,3,1,1,2,5,1,3,3,4,2,3,1,2,1,4,3,2,2,1,1,2,1,4,2,4,1,4,1,4,4,1,4,4,5,4,1,1,1,3,1,1,1,4,3,5,1,1,1,3,4,1,1,4,3,1,4,1,1,5,1,2,2,5,5,2,1,5};
+	int part1 = 0;
+	int part2 = 0;
 
-	std::bitset<16> gamma = 0;
-	std::bitset<16> epsilon = 0;
-	std::bitset<16> equal = 0;
+	int days = 0;
+	double oldsize;
+	double oldfactor;
+	while (days++ < 256) {
 
-	for (int bit = 0; bit <= 11; bit++) {
-		gamma.set(bit, checkGamma(data, bit));
-		epsilon.set(bit, checkEpsilon(data, bit));
-		equal.set(bit, checkEqual(data, bit));
-	}
-	std::cout << gamma << " " << gamma.to_ulong() << std::endl;
-	std::cout << epsilon << " " << epsilon.to_ulong() << std::endl;
-	std::cout << equal << " " << equal.to_ulong() << std::endl;
-	std::cout << "part1 : " << gamma.to_ulong() *  epsilon.to_ulong() << std::endl;
-
-	//part 2	
-	for (int bit = 11; bit >= 0; bit--){
-		std::cout << "checkbit:" << bit << std::endl;
-		if (!checkEqual(data,bit)) { 
-			if (checkGamma(data, bit)) {
-				auto iterator = std::remove_if(data.begin(), data.end(), [bit](std::bitset<16> i){return !i.test(bit);} );
-				data.erase(iterator, data.end());
-			}
-			else {
-				auto iterator = std::remove_if(data.begin(), data.end(), [bit](std::bitset<16> i){return i.test(bit);} );
-				data.erase(iterator, data.end());
-			}
+		if (days%32 == 0) {
+			double factor = double(data.size()/oldsize);
+			std::cout << days << " total : " << data.size() <<  " diff: " << data.size() - oldsize << " factor:"  << factor << " diff " << factor-oldfactor << std::endl;
+			oldfactor = factor;
+			oldsize = data.size();
 		}
-		if (data.size() == 2) {
-			showData(data);
-			break;
-		}
-	}
+		int newfish = 0;
 
-	//part 2	
-	for (int bit = 11; bit >= 0; bit--){
-		std::cout << "checkbit:" << bit << std::endl;
-		if (!checkEqual(secondpart,bit)) { 
-			if (checkGamma(secondpart, bit)) {
-				auto iterator = std::remove_if(secondpart.begin(), secondpart.end(), [bit](std::bitset<16> i){return i.test(bit);} );
-				secondpart.erase(iterator, secondpart.end());
-			}
-			else {
-				auto iterator = std::remove_if(secondpart.begin(), secondpart.end(), [bit](std::bitset<16> i){return !i.test(bit);} );
-				secondpart.erase(iterator, secondpart.end());
-			}
+    	std::transform(data.begin(), data.end(), data.begin(),
+                   [&newfish](uint8_t i) -> uint8_t { 
+					   i--;
+					   if (i==255) {
+						   i = 6;
+						   newfish++;
+					   }
+					   return i; });
+		//std::for_each(data.begin(), data.end(), myfunction);
+		//std::cout << std::to_string( data.at(0) ) << std::endl;
+
+		for (int n=0; n < newfish; n++) {
+			data.push_back(8);
+			//std::cout << 8 << ',';
 		}
-		if (secondpart.size() == 2) {
-			showData(secondpart);
-			break;
-		}
+		//std::cout << std::endl;
+
 	}
 
-	std::cout << "part2 : " << data.at(1).to_ulong() * secondpart.at(1).to_ulong() << std::endl;
+	std::cout << "part1 : " << data.size() << std::endl;
+	std::cout << "part2 : " << part2 << std::endl;
 
 	return 0;
 }

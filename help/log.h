@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream>
+#include <bitset>
+#include <iomanip>
 
 #define logger(stuff) std::cout << stuff << std::endl;
 
@@ -11,5 +14,12 @@ void showData(std::vector<std::bitset<16>> data) {
             << line << ' ' 
             << std::setw(4) << line.to_ulong() << std::endl;
 	}
+}
+
+void logvec(std::vector<int> vec) {
+	for (auto item : vec) {
+		std::cout << item << ' ';
+	}
+	std::cout << std::endl;
 }
 

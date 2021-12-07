@@ -26,6 +26,11 @@ jobs:
       working-directory: ${{github.workspace}}/build
       run: ./test -s -r compact -d yes
       
+    - name: Test_median
+      working-directory: ${{github.workspace}}/build
+      run: ./test -c median
+  
+
     - name: day1
       working-directory: ${{github.workspace}}/build
       run: ./2021/day01/day01 < ../2021/day01/data.txt
@@ -34,8 +39,12 @@ jobs:
     - name: day5
       working-directory: ${{github.workspace}}/build
       run: ./2021/day05/day05 < ../2021/day05/data.txt
-
+    
     - name: day6
       working-directory: ${{github.workspace}}/build
       run: ./2021/day06/day06
+    
+    - name: day7
+      working-directory: ${{github.workspace}}/build
+      run: ./2021/day07/day07
     

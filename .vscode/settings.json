@@ -17,5 +17,6 @@
         "list": "cpp",
         "regex": "cpp",
         "system_error": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

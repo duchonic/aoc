@@ -9,7 +9,7 @@ TEST_CASE( "math", "[math]" ) {
 }
 
 TEST_CASE("median", "") {
-    std::vector<int> v{1, 0, 5, 4, 3, 2, 6, 7, 9, 8};
+    std::vector<int> v{9, 8, 5, 4, 3, 2, 6, 7, 0, 1};
 
     SECTION("median") {
         logvec(v);

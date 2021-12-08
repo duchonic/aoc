@@ -5,7 +5,6 @@
 _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""|
 "`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-'
 
-
  0:      1:      2:      3:      4:
  aaaa    ....    aaaa    aaaa    ....
 b    c  .    1  .    c  .    c  4    1
@@ -24,16 +23,6 @@ b    .  b    .  .    c  b    c  b    c
 .    f  e    f  .    f  e    f  .    f
  gggg    gggg    ....    6ggg    gggg
 
-0 abc efg 6 digits
-1   c  f  2 digits
-2 a cde g 5 digits
-3 a cd fg 5 digits
-4  bcd f  4 digits
-5 ab d fg 5 digits
-6 ab defg 6 digits
-7 a c  f  3 digits
-8 abcdefg 7 digits
-9 abcd fg 6 digits
                     common with 
                     1       7       4
 1   c  f  2 digits
@@ -45,38 +34,31 @@ b    .  b    .  .    c  b    c  b    c
 6 ab defg 6 digits  f       af      bdf
 0 abc efg 6 digits  cf      acf     bcf
 9 abcd fg 6 digits  cf      acf     bcdf
-8 abcdefg 7 digits  cf      acf     bcdf
-
-*/
+8 abcdefg 7 digits  cf      acf     bcdf */
 
 #include "help/help.h"
-#include "help/math.h"
-#include "help/prime.h"
-#include "help/geometry.h"
-#include "help/string.h"
 #include "help/file.h"
 #include "help/log.h"
-#include "help/string.h"
  
 enum {
-    ONE,
-    SEVEN,
-    FOUR,
+    ONE, // 2 digit is #1 
+    SEVEN, // 3 digit is #7
+    FOUR, // 4 digit is #4
 };
 
+#define SPECIALUNIT std::vector<std::pair<std::array<std::string,10>,std::array<std::string,4>>>
+
 int matches(std::string a, std::string b){
-    int counts = 0;
-    for (auto ch : a) {
-        if (b.find(ch) != std::string::npos) {
-            counts++;
-        }
-    }
-    return (counts);
+    return (std::count_if(
+            a.begin(), 
+            a.end(), 
+            [b](auto a){return b.find(a) != std::string::npos;}
+        )
+    );
 }
 
 int main() {
-    std::vector<std::pair< std::array<std::string,10>,std::array<std::string,4> >> data 
-            = readstuffdigits();
+    SPECIALUNIT data = readstuffdigits();
 
 	int64_t part1 = 0;
 	int64_t part2 = 0;
@@ -85,33 +67,15 @@ int main() {
         auto checksize = [](std::string a, std::string b){return a.size()<b.size();};
         std::sort(entry.first.begin(), entry.first.end(), checksize);
         
+        part1 += std::count_if(
+            entry.second.begin(), 
+            entry.second.end(), 
+            [](auto test){return (test.size() <= 4 || test.size() == 7);});
+        
         std::string result{""};
+
         for (std::string test : entry.second) {
             switch (test.size()) {
-                case 2:
-                case 3:
-                case 4:
-                case 7: {
-                    part1++;
-                    break;
-                }
-                default:
-                    break;
-            }
-
-            switch (test.size()) {
-                case 2: {
-                    result += "1";
-                    break;
-                }
-                case 3: {
-                    result += '7';
-                    break;
-                }
-                case 4: {
-                    result += '4';
-                    break;
-                }
                 case 5: {
                     if (matches(test, entry.first.at(SEVEN)) == 3) {
                         result += '3';
@@ -136,15 +100,12 @@ int main() {
                     }
                     break;
                 }
-                case 7: {
-                    result += '8';
-                    break;
-                }
                 default:
-                    logger("ERROR");   
+                    std::array<char, 8> lookup{' ', ' ', '1', '7', '4', 'x', 'x', '8'};
+                    result += lookup.at(test.size());
                     break;
-            }
-        }            
+            }  
+        }          
         part2 += stoi(result);
     }
 

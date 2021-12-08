@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "log.h"
 
 
 std::vector < std::pair< std::pair<int,int>, std::pair<int,int>>> readLines() {
@@ -20,6 +21,28 @@ std::vector < std::pair< std::pair<int,int>, std::pair<int,int>>> readLines() {
 		ss >> dummychar;
 		ss >> end.second;
 		retval.push_back(std::make_pair(start, end));
+	}
+	return retval;
+}
+
+std::vector< std::pair< std::array<std::string, 10>, std::array<std::string, 4> >> readstuffdigits() {
+	std::vector< std::pair< std::array<std::string, 10>, std::array<std::string, 4> >> retval;
+	std::string line;
+	while (std::getline(std::cin, line)) {
+		std::stringstream ss(line);
+		std::pair< std::array<std::string, 10>, std::array<std::string, 4>> entry;
+		std::string nr;
+		char dummy;
+		for (int digits=0; digits<10; digits++) {
+			ss >> nr;
+			entry.first.at(digits) = nr;
+		}
+		ss >> nr;
+		for (int digits=0; digits<4; digits++) {
+			ss >> nr;
+			entry.second.at(digits) = nr;
+		}
+		retval.push_back(entry);
 	}
 	return retval;
 }

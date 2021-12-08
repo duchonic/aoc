@@ -47,7 +47,6 @@ jobs:
     - name: day6
       working-directory: ${{github.workspace}}/build
       run: ./2021/day06/day06
-
     - name: day7
       working-directory: ${{github.workspace}}/build
       run: ./2021/day07/day07   

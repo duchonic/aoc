@@ -30,12 +30,16 @@ jobs:
       working-directory: ${{github.workspace}}/build
       run: ./test -c median
   
+  run:
+    runs-on: ubuntu-latest
 
+    steps:
+    - uses: actions/checkout@v2
+    
     - name: day1
       working-directory: ${{github.workspace}}/build
       run: ./2021/day01/day01 < ../2021/day01/data.txt
       
-
     - name: day5
       working-directory: ${{github.workspace}}/build
       run: ./2021/day05/day05 < ../2021/day05/data.txt
@@ -43,12 +47,16 @@ jobs:
     - name: day6
       working-directory: ${{github.workspace}}/build
       run: ./2021/day06/day06
-    
-     - name: day7
+
+    - name: day7
       working-directory: ${{github.workspace}}/build
       run: ./2021/day07/day07   
       
-     - name: day8
+    - name: day8
       working-directory: ${{github.workspace}}/build
-      run: ./2021/day08/day08
+      run: ./2021/day08/day08 < ../2021/day08/data.txt
+      
+    - name: day8
+      working-directory: ${{github.workspace}}/build
+      run: ./2021/day08/day08 < ../2021/day08/data.txt
     

@@ -41,7 +41,7 @@ b    .  b    .  .    c  b    c  b    c
 1   c  f  2 digits
 7 a c  f  3 digits  
 4  bcd f  4 digits  
-3 a cd fg 5 digits  cf      acf     df
+3 a cd fg 5 digits  cf      acf     cdf
 2 a cde g 5 digits  c       ac      cd 
 5 ab d fg 5 digits  f       af      bdf
 6 ab defg 6 digits  f       af      bdf
@@ -59,47 +59,102 @@ b    .  b    .  .    c  b    c  b    c
 #include "help/file.h"
 #include "help/log.h"
 #include "help/string.h"
+ 
+enum {
+    ONE,
+    SEVEN,
+    FOUR,
+};
 
-void match1(){
-
+int matches(std::string a, std::string b){
+    int counts = 0;
+    for (auto ch : a) {
+        if (b.find(ch) != std::string::npos) {
+            counts++;
+        }
+    }
+    return (counts);
 }
 
 int main() {
     std::vector<std::pair< std::array<std::string,10>,std::array<std::string,4> >> data 
             = readstuffdigits();
 
-	int16_t part1 = 0;
-	int16_t part2 = 0;
+	int64_t part1 = 0;
+	int64_t part2 = 0;
 
     for (auto &entry : data) {
         auto checksize = [](std::string a, std::string b){return a.size()<b.size();};
         std::sort(entry.first.begin(), entry.first.end(), checksize);
-        std::sort(entry.second.begin(), entry.second.end(), checksize);
         
         for (auto &nr : entry.first) {
             std::sort(nr.begin(), nr.end());
-            std::cout << nr << ' ';
         }       
-        std::cout << "| ";
         for (auto &nr : entry.second) {
             std::sort(nr.begin(), nr.end());
-            std::cout << nr << ' ';
         }
-
-        for (std::string check : entry.first ){
-            for (std::string test : entry.second) {
-                //logger(check << " . " << test);
-                if (check.compare(test) == 0) {
-                    std::cout << " 1";
+        std::string result{""};
+        for (std::string test : entry.second) {
+            switch (test.size()) {
+                case 2:
+                case 3:
+                case 4:
+                case 7: {
                     part1++;
+                    break;
                 }
-            }            
-        }
+                default:
+                    break;
+            }
 
-        std::cout << std::endl;
+            switch (test.size()) {
+                case 2: {
+                    result += "1";
+                    break;
+                }
+                case 3: {
+                    result += '7';
+                    break;
+                }
+                case 4: {
+                    result += '4';
+                    break;
+                }
+                case 5: {
+                    if (matches(test, entry.first.at(SEVEN)) == 3) {
+                        result += '3';
+                    }
+                    else if (matches(test, entry.first.at(FOUR)) == 3) {
+                        result += '5';
+                    }
+                    else {
+                        result += '2';
+                    }
+                    break;
+                }
+                case 6: {
+                    if (matches(test, entry.first.at(FOUR)) == 4) {
+                        result += '9';
+                    }
+                    else if (matches(test, entry.first.at(SEVEN)) == 3) {
+                        result += '0';
+                    }
+                    else {
+                        result += '6';
+                    }
+                    break;
+                }
+                case 7: {
+                    result += '8';
+                    break;
+                }
+                default:
+                    logger("ERROR");   
+                    break;
+            }
+        }            
+        part2 += stoi(result);
     }
-
-
 
 	std::cout << "part1 : " << part1 << std::endl;
 	std::cout << "part2 : " << part2 << std::endl;

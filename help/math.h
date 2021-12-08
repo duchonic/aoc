@@ -36,7 +36,6 @@ int median(std::vector<int> v) {
 
 int median(std::vector<int> v, size_t n) {
     std::nth_element(v.begin(), v.begin()+n, v.end());
-    logvec(v);
     return v[n];
 } 
 // ----------------------</MATH>-------------------------- 

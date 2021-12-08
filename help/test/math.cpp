@@ -12,7 +12,6 @@ TEST_CASE("median", "") {
     std::vector<int> v{9, 8, 5, 4, 3, 2, 6, 7, 0, 1};
 
     SECTION("median") {
-        logvec(v);
         REQUIRE( median(v,0) == 0 );
         REQUIRE( median(v,1) == 1 );
         REQUIRE( median(v,2) == 2 );
@@ -23,15 +22,6 @@ TEST_CASE("median", "") {
         REQUIRE( median(v,7) == 7 );
         REQUIRE( median(v,8) == 8 );
         REQUIRE( median(v,9) == 9 );
-
-        REQUIRE( median(v) == 5 );
+        REQUIRE( median(v) == 5);
     }
-
-
-    // Note: comp function changed
-    logvec(v);
-    std::nth_element(v.begin(), v.begin()+1, v.end(), std::greater{});
-    std::cout << "The largest element is " << v[0] 
-            << " The second largest element is " << v[1] << '\n';
-    logvec(v);
 }

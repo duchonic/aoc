@@ -36,26 +36,19 @@ b    .  b    .  .    c  b    c  b    c
 7 a c  f  3 digits
 8 abcdefg 7 digits
 9 abcd fg 6 digits
-
+                    common with 
+                    1       7       4
 1   c  f  2 digits
-7 a c  f  3 digits -> identify signal a 
-4  bcd f  4 digits 
-2 a cde g 5 digits 
-3 a cd fg 5 digits
-5 ab d fg 5 digits
-6 ab defg 6 digits
-0 abc efg 6 digits
-9 abcd fg 6 digits
-8 abcdefg 7 digits
+7 a c  f  3 digits  
+4  bcd f  4 digits  
+3 a cd fg 5 digits  cf      acf     df
+2 a cde g 5 digits  c       ac      cd 
+5 ab d fg 5 digits  f       af      bdf
+6 ab defg 6 digits  f       af      bdf
+0 abc efg 6 digits  cf      acf     bcf
+9 abcd fg 6 digits  cf      acf     bcdf
+8 abcdefg 7 digits  cf      acf     bcdf
 
-ignore digits that are all the same
-2   cde   5 digits
-3   cd f  5 digits
-5  b d f  5 digits
-6  b def  6 digits
-0  bc ef  6 digits
-9  bcd f  6 digits
-8  bcdef  7 digits
 */
 
 #include "help/help.h"
@@ -67,28 +60,46 @@ ignore digits that are all the same
 #include "help/log.h"
 #include "help/string.h"
 
+void match1(){
+
+}
+
 int main() {
     std::vector<std::pair< std::array<std::string,10>,std::array<std::string,4> >> data 
             = readstuffdigits();
 
+	int16_t part1 = 0;
+	int16_t part2 = 0;
+
     for (auto &entry : data) {
-        logger("entry: ");
         auto checksize = [](std::string a, std::string b){return a.size()<b.size();};
         std::sort(entry.first.begin(), entry.first.end(), checksize);
         std::sort(entry.second.begin(), entry.second.end(), checksize);
         
-        for (auto nr : entry.first) {
+        for (auto &nr : entry.first) {
+            std::sort(nr.begin(), nr.end());
             std::cout << nr << ' ';
         }       
         std::cout << "| ";
-        for (auto nr : entry.second) {
+        for (auto &nr : entry.second) {
+            std::sort(nr.begin(), nr.end());
             std::cout << nr << ' ';
         }
+
+        for (std::string check : entry.first ){
+            for (std::string test : entry.second) {
+                //logger(check << " . " << test);
+                if (check.compare(test) == 0) {
+                    std::cout << " 1";
+                    part1++;
+                }
+            }            
+        }
+
         std::cout << std::endl;
     }
 
-	int16_t part1 = 0;
-	int16_t part2 = 0;
+
 
 	std::cout << "part1 : " << part1 << std::endl;
 	std::cout << "part2 : " << part2 << std::endl;

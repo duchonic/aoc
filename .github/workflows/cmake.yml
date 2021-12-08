@@ -30,12 +30,6 @@ jobs:
       working-directory: ${{github.workspace}}/build
       run: ./test -c median
   
-  run:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    
     - name: day1
       working-directory: ${{github.workspace}}/build
       run: ./2021/day01/day01 < ../2021/day01/data.txt

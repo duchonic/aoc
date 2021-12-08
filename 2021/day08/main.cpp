@@ -87,12 +87,6 @@ int main() {
         auto checksize = [](std::string a, std::string b){return a.size()<b.size();};
         std::sort(entry.first.begin(), entry.first.end(), checksize);
         
-        for (auto &nr : entry.first) {
-            std::sort(nr.begin(), nr.end());
-        }       
-        for (auto &nr : entry.second) {
-            std::sort(nr.begin(), nr.end());
-        }
         std::string result{""};
         for (std::string test : entry.second) {
             switch (test.size()) {

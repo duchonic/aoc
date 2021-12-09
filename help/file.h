@@ -1,8 +1,28 @@
 #pragma once
 
 #include <string>
+#include <fstream>
+#include <iostream>
 #include "log.h"
 
+
+std::vector<std::string> readFile(std::string file) {
+	std::vector<std::string> data;
+	std::ifstream myfile; 
+	myfile.open(file);
+
+	if (myfile.is_open()) {
+		while (myfile) {
+			std::string line;
+			std::getline(myfile, line);
+			data.push_back(line);
+		}
+	}
+	else {
+		logger("file not found");
+	}
+	return (data);
+}
 
 std::vector < std::pair< std::pair<int,int>, std::pair<int,int>>> readLines() {
 	std::vector< std::pair< std::pair<int,int>, std::pair<int,int>>> retval;

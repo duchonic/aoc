@@ -52,4 +52,3 @@ jobs:
     - name: day8
       working-directory: ${{github.workspace}}/build
       run: ./2021/day08/day08 < ../2021/day08/data.txt
-    

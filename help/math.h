@@ -28,7 +28,7 @@ template<typename T>T extended_euclid(T a, T b, T &x, T &y)
 template<typename T>T mod_inverse(T a, T n = MOD){T x,y,z=0;
                T d=extended_euclid(a,n,x,y);return(d>1?-1:mod_neg(x,z,n));} 
 
-int median(std::vector<int> v) {
+uint64_t median(std::vector<uint64_t> v) {
     size_t n = v.size() / 2;
     std::nth_element(v.begin(), v.begin()+n, v.end());
     return v[n];

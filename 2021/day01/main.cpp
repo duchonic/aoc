@@ -24,11 +24,11 @@
  */
 static int16_t sonarScope(std::vector<int16_t> input, int8_t width) {
 	int16_t lineNumber = 0;
-	int16_t lastNumber = 10000;
+	int32_t lastNumber = 10000;
 	int16_t returnValue = 0;
 	for (auto dummy : input) {
 		try{
-			int16_t actualNumber = 0;
+			int32_t actualNumber = 0;
 			for (uint8_t w = 0; w < width; w++) {
 				actualNumber += input.at(lineNumber+w);	
 			}
@@ -38,6 +38,7 @@ static int16_t sonarScope(std::vector<int16_t> input, int8_t width) {
 			lastNumber = actualNumber;
 		}
 		catch(const std::out_of_range& e) {
+			(void)e;
 			logger("this is the end...");
 			break;
 		}

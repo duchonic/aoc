@@ -16,16 +16,68 @@ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"
 #include "help/string.h"
 #include <unistd.h>
 #include <cstdlib>
+#include <map>
 
 
 
 int main() {
 
 	//std::vector<std::string> data = readFile("W:/work/hack/aoc/2021/day09/data.txt");
-	std::vector<std::string> data = readFile("../data.txt");
+	//std::vector<std::string> data = readFile("../data.txt");
+
+	std::vector<std::string> data = readstuff();
 
 	if (data.size() == 0) {
 		return 1;
+	}
+	
+	for (auto line : data) {
+		logger(line);
+		std::map<char, int> syntax{
+			{'(', 0},
+			{'{', 0},
+			{'[',0},
+			{'<',0},
+		};
+		for (auto ch : line) {
+			if (ch == '(') {
+				syntax['(']++;		
+			}
+			else if (ch == ')') {
+				syntax['(']--;
+			}
+			else if (ch == '{') {
+				syntax['{']++;
+			}
+			else if (ch == '}') {
+				syntax['}']--;
+			}
+			else if (ch == '[') {
+				syntax['[']++;
+			}
+			else if (ch == ']') {
+				syntax[']']--;
+			}
+			else if (ch == '<') {
+				syntax['<']++;
+			}
+			else if (ch == '>') {
+				syntax['>']--;
+			}
+			bool error = false;
+			for (auto check : syntax) {
+				if (check.second < 0) {
+					error = true;
+					logger("error");
+					logger(check.first << ' ' << check.second); 
+					break;
+				}
+			}
+			if (error) {
+				break;
+			}
+		}
+	
 	}
 
 	int part1 = 0;

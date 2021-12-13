@@ -14,7 +14,6 @@ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"
 #include "help/file.h"
 #include "help/log.h"
 #include "help/string.h"
-#include <unistd.h>
 #include <cstdlib>
 #include <map>
 

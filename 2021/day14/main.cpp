@@ -42,10 +42,8 @@ int main() {
 			try {
 				std::string check = genesis.substr(position, 2);
 				if (check.size() == 2) {
-					//logger("check: " << check);
 					auto search = lookup.find(check);
 					if (search != lookup.end()) {
-						//logger("insert: " << search->second);
 						genesis.insert(position+1, search->second);
 					}
 					position += 2;		

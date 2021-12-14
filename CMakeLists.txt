@@ -14,6 +14,7 @@ add_subdirectory(2021/day10)
 add_subdirectory(2021/day11)
 add_subdirectory(2021/day12)
 add_subdirectory(2021/day13)
+add_subdirectory(2021/day14)
 
 add_executable(test 
   ../help/test/main.cpp 

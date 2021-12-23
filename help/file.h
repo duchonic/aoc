@@ -46,6 +46,24 @@ std::vector < std::pair< std::pair<int,int>, std::pair<int,int>>> readLines() {
 	return retval;
 }
 
+
+std::vector<char> readStuffHexToChar() {
+	std::vector<char> data;
+	std::string line;
+	while (std::getline(std::cin, line)) {
+		std::stringstream ss(line);
+		while (true) {
+			char ch;
+			ss >> ch;
+			data.push_back(ch);	
+			if (ch == ' ') {
+				break;
+			}
+		}
+	}
+	return data;
+}
+
 std::vector< std::pair< std::array<std::string, 10>, std::array<std::string, 4> >> readstuffdigits() {
 	std::vector< std::pair< std::array<std::string, 10>, std::array<std::string, 4> >> retval;
 	std::string line;

@@ -25,3 +25,12 @@ set number
 2021 day2, a submarine that floats throu the ocean.
 
 - [ ] Graph xy for position
+
+## .gitconfig
+
+[alias]
+	l = log --pretty='%Cblue%aN%C(auto)%d %Creset%s' --graph --date=relative --date-order -20
+	ll = log --pretty='%C(yellow)%h %C(cyan)%cd %Cblue%aN%C(auto)%d %Creset%s' --graph --date=relative --date-order -20
+	lll = log --pretty='%C(yellow)%h %C(cyan)%cd %Cblue%aN%C(auto)%d %Creset%s' --graph --date-order
+	s = status
+	b = branch

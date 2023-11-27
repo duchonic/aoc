@@ -30,25 +30,7 @@ jobs:
       working-directory: ${{github.workspace}}/build
       run: ./test -c median
   
-    - name: day1
+    - name: day0
       working-directory: ${{github.workspace}}/build
-      run: ./2021/day01/day01 < ../2021/day01/data.txt
+      run: ./2023/day00/day00 < ../2023/day00/data.txt
       
-    - name: day5
-      working-directory: ${{github.workspace}}/build
-      run: ./2021/day05/day05 < ../2021/day05/data.txt
-    
-    - name: day6
-      working-directory: ${{github.workspace}}/build
-      run: ./2021/day06/day06
-    - name: day7
-      working-directory: ${{github.workspace}}/build
-      run: ./2021/day07/day07   
-      
-    - name: day8
-      working-directory: ${{github.workspace}}/build
-      run: ./2021/day08/day08 < ../2021/day08/data.txt
-      
-    - name: day8
-      working-directory: ${{github.workspace}}/build
-      run: ./2021/day08/day08 < ../2021/day08/data.txt

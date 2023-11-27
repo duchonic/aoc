@@ -1,22 +1,7 @@
 cmake_minimum_required(VERSION 3.4)
 set(CMAKE_CXX_STANDARD 20)
 project(aoc)
-add_subdirectory(2021/day01)
-#add_subdirectory(2021/day02)
-add_subdirectory(2021/day03)
-add_subdirectory(2021/day04)
-add_subdirectory(2021/day05)
-add_subdirectory(2021/day06)
-add_subdirectory(2021/day07)
-add_subdirectory(2021/day08)
-add_subdirectory(2021/day09)
-add_subdirectory(2021/day10)
-add_subdirectory(2021/day11)
-add_subdirectory(2021/day12)
-add_subdirectory(2021/day13)
-add_subdirectory(2021/day14)
-add_subdirectory(2021/day15)
-add_subdirectory(2021/day16)
+add_subdirectory(2023/day00)
 
 add_executable(test 
   ../help/test/main.cpp 

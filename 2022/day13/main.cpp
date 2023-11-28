@@ -23,13 +23,27 @@
  * @return int16_t sum of positives slopes
  */
 static int16_t sonarScope(std::vector<std::string> input, int8_t width) {
+	int16_t lineNumber = 0;
 	int16_t returnValue = 0;
+
+	for (auto dummy : input) {
+		std::cout << dummy << std::endl;
+
+		// split the string by comma
+		std::stringstream ss(dummy);
+		std::string item;
+		while (std::getline(ss, item, ',')) {
+			std::cout << "item: " << item << std::endl;
+		}
+
+		lineNumber++;
+	}
 	return returnValue;	
 }
 
 
 int main() {
-	std::vector<std::string> data = readFile("test.txt");
+	std::vector<std::string> data = readstuff();
 	int16_t part1 = sonarScope(data, 1);
 	int16_t part2 = sonarScope(data, 3);
 	std::cout << "part1 : " << part1 << std::endl;

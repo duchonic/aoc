@@ -1,9 +1,7 @@
 cmake_minimum_required(VERSION 3.4)
 set(CMAKE_CXX_STANDARD 20)
 project(aoc)
-#add_subdirectory(2022/day13)
-#add_subdirectory(2019/day05)
-add_subdirectory(2015cpp/day13)
+add_subdirectory(2023/day01)
 
 add_executable(test 
   ../help/test/main.cpp 

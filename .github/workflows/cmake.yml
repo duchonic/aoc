@@ -30,7 +30,7 @@ jobs:
       working-directory: ${{github.workspace}}/build
       run: ./test -c median
  
-    - name: 2015_day13
+    - name: 2023_day01
       working-directory: ${{github.workspace}}/build
-      run: ./2015cpp/day13/day13 < ../2015cpp/day13/data.txt
+      run: ./2023/day01/day01 < ../2023/day01/data.txt
       

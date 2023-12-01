@@ -14,73 +14,43 @@
 #include "help/file.h"
 #include "help/log.h"
 
-#include <regex>
-#include <string>
-
 /**
  * @brief solves the problem
  */
-static int64_t solve(std::vector<std::string> input, bool part2) {
+static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 	int64_t returnValue = 0;
 
-
 	for (auto line : input) {
+		
 		int first = -1;
 		int last = -1;
 
-		std::string solve_line = "";
+		std::string solve_LeftToRight = "";
+		std::string solve_RightToLeft = "";
 
-		for (char c : line) {
-			solve_line += c;
+		for (int pos = 0; pos < line.size(); pos++) {
+			char nextChar_RightToLeft = line.at(line.size()-1-pos);
+			char nextChar_LeftToRight = line.at(pos);
 
-			if (isdigit(c)) {
-				first = c - '0';
-				break;
-			}
-
-			if (part2) {
-				std::vector<std::string> numbers = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
-				int index = 1;
-				for (auto &number : numbers) {
-					if ( solve_line.find(number) != std::string::npos ){
-						first = index;
-						break;
-					}
-					index += 1;
-				}
-
-				if (first != -1) {
-					break;
-				}
-
-			}
-		}
-
-		solve_line.clear();
-
-		for (int pos = line.size()-1; pos >= 0; pos-- ) {
-			char c = line.at(pos);
-			solve_line = c + solve_line;
-			
-			if (isdigit(c)) {
-				last = c - '0';
-				break;
+			if (isdigit(nextChar_RightToLeft) && (last == -1)) {
+				last = nextChar_RightToLeft - '0';
 			}			
+			if (isdigit(nextChar_LeftToRight) && (first == -1)) {
+				first = nextChar_LeftToRight - '0';
+			}
 
-			if (part2) {
-
+			if (DoPart2) {
+				solve_RightToLeft = nextChar_RightToLeft + solve_RightToLeft;
 				std::vector<std::string> numbers = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
 				int index = 1;
 				for (auto &number : numbers) {
-					if ( solve_line.find(number) != std::string::npos ){
-						last = index;
-						break;
+					if (last != -1) {
+						if (solve_RightToLeft.find(number) != std::string::npos) {
+							last = index;
+							break;
+						}
 					}
 					index += 1;
-				}
-
-				if (last != -1) {
-					break;
 				}
 			}
 		}

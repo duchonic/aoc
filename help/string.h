@@ -74,3 +74,13 @@ std::size_t replace_all(std::string& inout, std::string_view what, std::string_v
 std::size_t remove_all(std::string& inout, std::string_view what) {
     return replace_all(inout, what, "");
 }
+
+std::vector<std::string> get_numbers_1_to_9() {
+    std::vector<std::string> numbers = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+    return numbers;
+}
+
+std::vector<std::string> get_numbers_() {
+    std::vector<std::string> numbers = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+    return numbers;
+}

@@ -3,6 +3,7 @@ set(CMAKE_CXX_STANDARD 20)
 project(aoc)
 add_subdirectory(2023/day01)
 add_subdirectory(2023/day02)
+add_subdirectory(2023/day03)
 
 add_executable(test 
   ../help/test/main.cpp 

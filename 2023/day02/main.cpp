@@ -92,12 +92,9 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2, color_pixel s
 		}
 		
 		if (DoPart2) {
-			std::cout << "red: " << (int)actual_pixel.red << " green: " << actual_pixel.green << " blue:" << actual_pixel.blue << std::endl;
 			returnValue += actual_pixel.red * actual_pixel.green * actual_pixel.blue;
-
 		} else {
 			if (!saturated) {
-				std::cout << "game " << gamenr << " is not saturated" << std::endl;
 				returnValue += gamenr;
 			}
 		}

@@ -6,11 +6,12 @@
  * @date 2023-12-02
  * 
  * @copyright codestation (c) 2023
- *   ___    ___   __| |   ___    ___   | |_   __ _   | |_    (_)    ___   _ _   
- *  / _ |  / _ \ / _` |  / -_)  (_-<   |  _| / _` |  |  _|   | |   / _ \ | ' \ 
- *  \___|  \___/ \__,_|  \___|  /__/_  _\__| \__,_|  _\__|  _|_|_  \___/ |_||_|
- * /""""\_/""""\_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""|
- * =-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-
+ *                   _                 _             _       __
+ *   ___    ___    _| |   ___    ___  | |_    _ _   | |_    (__)   ___    _ _   
+ *  / _ |  / _ \  /_` |  / -_)  (_-<  |  _|  /_` |  |  _|   |  |  / _ \  | ' \ 
+ *  \___|  \___/  \_,_|  \___|  /__/   \__|  \_,_|   \__|   |__|  \___/  |_||_|
+ * /""""\_/""""\_/""""\_/".."\_/""""\_/""""\_/""""\_/""""\_/""""\_/""""\_/""""\
+ * -0--0-=-0--0-=-0--0-=-0xx0-=-0--0-=-0--0-=-0--0-=-0--0-=-0--0-=-0--0-=-0--0-
 */
 
 #include "help/help.h"
@@ -30,12 +31,12 @@
 static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 	int64_t returnValue = 0;
 
-	std::vector<int> winners;
-	std::vector<int> numbers;
 	std::vector<int> copies;
-
-	for (auto line : input) {
-		copies.push_back(1);
+	
+	if (DoPart2) {
+		for (auto line : input) {
+			copies.push_back(1);
+		}
 	}
 
 	int card_nr = 0;
@@ -43,14 +44,12 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 		std::vector<std::string> linearray;
 		split_str(line, ' ', linearray);
 
-		winners.clear();
+		std::vector<int> winners;
 		for (int win=2; win <= 11; win++) {
-		//for (int win=2; win <= 6; win++) {
 			winners.push_back( std::atoi( linearray.at(win).c_str() ));
 		}	
-		numbers.clear();
+		std::vector<int> numbers;
 		for (int num=13; num < linearray.size(); num++) {
-		//for (int num=8; num < linearray.size(); num++) {
 			numbers.push_back( std::atoi (linearray.at(num).c_str() ));
 		}
 
@@ -70,13 +69,14 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 			}
 		}
 
-		for (int run = 1; run <= copies.at(card_nr); run++) {
-			for (int win_copies = card_nr + 1; win_copies < card_nr + 1 + local_copies; win_copies++) {
-				copies.at(win_copies) = copies.at(win_copies) + 1;
+		if (DoPart2) {
+			for (int run = 1; run <= copies.at(card_nr); run++) {
+				for (int win_copies = card_nr + 1; win_copies < card_nr + 1 + local_copies; win_copies++) {
+					copies.at(win_copies) = copies.at(win_copies) + 1;
+				}
 			}
+			card_nr += 1;
 		}
-		card_nr += 1;
-
 		returnValue += result;
 	}
 
@@ -86,7 +86,6 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 			returnValue += cop;
 		}
 	}
-
 	return returnValue;	
 }
 

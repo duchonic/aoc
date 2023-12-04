@@ -46,7 +46,6 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2, color_pixel s
 	std::map<std::pair<int, int>, std::vector<int>> map;
 
 	for (std::string line : input) {
-		std::cout << line << std::endl;
 		std::string read_value{""};
 		std::array< std::pair<int,int>, 2 > startstop;
 		bool start_value = false;
@@ -86,43 +85,33 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2, color_pixel s
 		line_nr += 1;
 	}
 
-	for (auto item : symbols) {
-		std::cout << "item: " << item.first << "/" << item.second << std::endl;
-	}
-
 
 	for (int nr=0; nr < numbers.size(); nr++) {
 
 		for (int size = 0; size < std::to_string(values.at(nr)).size(); size++) {
 			bool found = false;
-			//std::cout << "value: " << numbers.at(nr).first << '/' << numbers.at(nr).second << std::endl;	
 			std::array< std::pair<int,int>, 8> neighbour{ 
 				std::pair{-1,-1}, std::pair{0,-1}, std::pair{1,-1},
 				std::pair{-1,0},                   std::pair{1, 0},
 				std::pair{-1,1}, std::pair{0,1}, std::pair{1,1} };
 			for (auto nb : neighbour) {
 				std::pair<int,int> check = {numbers.at(nr).first + size + nb.first, numbers.at(nr).second + nb.second};
-				//std::cout << "check:" << check.first << '/' << check.second << std::endl;
 				for (auto item: symbols) {
 					if (check == item) {
 						if (DoPart2) {
 							if (map.find(item) == map.end()) {
 								map[item] = std::vector<int>();
 								map[item].push_back(values.at(nr));
-								std::cout << "push back first: " << values.at(nr) << std::endl;
 							}
 							else {
 								map[item].push_back(values.at(nr));
-								std::cout << "first was: " << map[item][0] << " push back second: " << values.at(nr) << std::endl;
 								returnValue += map[item][0] * values.at(nr);
-								std::cout << returnValue << std::endl;
 							}
 						}
 						else {
 							returnValue += values.at(nr);
 						}
 
-						std::cout << "found " << values.at(nr) <<  " item at " << item.first << '/' << item.second << std::endl;
 						found = true;
 						break;
 						
@@ -138,14 +127,6 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2, color_pixel s
 		}
 	}
 
-	if (DoPart2) {
-		for (auto item : map) {
-			std::cout << "item: " << item.first.first << '/' << item.first.second << std::endl;
-			for (auto values : item.second) {
-				//std::cout << "values: " << values << std::endl;
-			}
-		}
-	}
 
 
 	return returnValue;	

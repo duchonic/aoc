@@ -3,7 +3,7 @@
  * @author your name (you@domain.com)
  * @brief 
  * @version 0.1
- * @date 2023-12-02
+ * @date 2023-12-05
  * 
  * @copyright codestation (c) 2023
  *                   _                 _             _       __
@@ -25,6 +25,13 @@
 #include "help/plot.h"
 
 
+/*
+    Seed 79, soil 81, fertilizer 81, water 81, light 74, temperature 78, humidity 78, location 82.
+    Seed 14, soil 14, fertilizer 53, water 49, light 42, temperature 42, humidity 43, location 43.
+    Seed 55, soil 57, fertilizer 57, water 53, light 46, temperature 82, humidity 82, location 86.
+    Seed 13, soil 13, fertilizer 52, water 41, light 34, temperature 34, humidity 35, location 35.
+*/
+
 int64_t solve( std::array<int, 3> input, int64_t seed) {
 	int64_t returnValue = seed;
 
@@ -32,14 +39,10 @@ int64_t solve( std::array<int, 3> input, int64_t seed) {
 	int64_t source = input.at(1);
 	int64_t length = input.at(2);
 
-	if (seed >= source && seed <= source + length) {
-
-		if (destination > source)
-			returnValue = seed + (destination - source);
-		else 
-			returnValue = seed - (source - destination);
-
+	if (seed >= source && seed <= source + length-1) {
+		returnValue = seed - source + destination;
 	}
+
 	return returnValue;
 }
 
@@ -87,6 +90,7 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 	}
 
 
+	std::cout << "seed:  ->  soil  v ->  fertilizer  v ->  water             v -> light  v -> temperature  v -> hum    v -> map" << std::endl;
 	for (auto seed : seeds) {
 
 		int calc_seed = seed;

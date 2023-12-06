@@ -50,3 +50,7 @@ jobs:
       working-directory: ${{github.workspace}}/build
       run: ./2023/day05/day05 < ../2023/day05/data.txt
       
+    - name : 2023_day06
+      working-directory: ${{github.workspace}}/build
+      run: ./2023/day06/day06 < ../2023/day06/data.txt
+      

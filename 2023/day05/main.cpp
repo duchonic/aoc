@@ -171,6 +171,9 @@ int main() {
 	int64_t part1 = solve(data, false);
 	std::cout << "part1 : " << part1 << std::endl;
 
+	// better to leave here because second part will burn the CPU
+	return 0;
+
 	std::cout << "2023 day05 solve part 2" << std::endl;
 	int64_t part2 = solve(data, true);
 	std::cout << "part2 : " << part2 << std::endl;

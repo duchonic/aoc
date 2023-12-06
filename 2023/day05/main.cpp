@@ -40,8 +40,6 @@ int64_t solve_part( std::array<int64_t, 3> input, int64_t seed) {
 	int64_t source = input.at(1);
 	int64_t length = input.at(2);
 
-	std::cout << "seed: " << seed << std::endl;
-	std::cout << "input: " << input.at(0) << " " << input.at(1) << " " << input.at(2) << std::endl;
 	if (seed >= source && seed <= source + length-1) {
 		int64_t offset = seed - source;
 		assert(offset >= 0);
@@ -60,6 +58,7 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 	int64_t returnValue = 100000000000;
 
 	std::vector<int64_t> seeds;
+	std::vector<std::vector<int64_t>> seeds_part2;
 	std::vector<std::vector<std::array<int64_t, 3>>> commands_global;
 	std::vector<std::array<int64_t, 3>> commands;
 
@@ -80,12 +79,26 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 			if (split.at(0) == "seeds") {
 				std::vector<std::string> split_seeds;
 				split_str(split.at(1), ' ', split_seeds);
+
+				std::vector<int64_t> seed_pair;
+				seed_pair.clear();
 				for (auto seed : split_seeds) {
-					seeds.push_back(std::atoll(seed.c_str()));
+					if (DoPart2) {
+						if (seed_pair.size() == 0) {
+							seed_pair.push_back(std::atoll(seed.c_str()));
+						}
+						else {
+							seed_pair.push_back(std::atoll(seed.c_str()));
+							seeds_part2.push_back(seed_pair);
+							seed_pair.clear();
+						}
+					}
+					else {
+						seeds.push_back(std::atoll(seed.c_str()));
+					}
 				}
 			}
 			else if (isdigit(split.at(0)[0])) {
-				std::cout << "line : " << line << std::endl;
 				std::vector<std::string> split_command;
 				split_str(split.at(0), ' ', split_command);
 
@@ -94,11 +107,8 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 				int64_t length = std::atoll(split_command.at(2).c_str());
 				std::array<int64_t, 3> command_array = {destination, source, length};
 				commands.push_back(command_array);
-
-				std::cout << "command : " << command_array.at(0) << " " << command_array.at(1) << " " << command_array.at(2) << std::endl;
 			}
 			else  {
-				//std::cout << "newline" << std::endl;
 				commands_global.push_back(commands);
 				commands.clear();
 			}
@@ -107,23 +117,48 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 	commands_global.push_back(commands);
 
 
-	for (auto seed : seeds) {
-		int64_t calc_seed = seed;
-		for (auto commands : commands_global) {
-			for (auto command : commands) {
+	if (DoPart2) {
+		for (auto pair : seeds_part2) {
+			std::cout << "pair : " << pair.at(0) << " " << pair.at(1) << std::endl;
+		
+			for (int64_t start = pair.at(0); start <= pair.at(0) + pair.at(1); start++) {
+				int64_t calc_seed = start;
+				for (auto commands : commands_global) {
+					for (auto command : commands) {
 
-				int64_t old_seed = calc_seed;
-				calc_seed = solve_part(command, calc_seed);
-				if (old_seed != calc_seed) {
-					break;
+						int64_t old_seed = calc_seed;
+						calc_seed = solve_part(command, calc_seed);
+						if (old_seed != calc_seed) {
+							break;
+						}
+					}
+				}
+				if (calc_seed < returnValue) {
+					returnValue = calc_seed;
 				}
 			}
-		}
-		if (calc_seed < returnValue) {
-			returnValue = calc_seed;
-			std::cout << "calc_seed : " << calc_seed << std::endl;
+		
 		}
 
+		
+	}
+	else {
+		for (auto seed : seeds) {
+			int64_t calc_seed = seed;
+			for (auto commands : commands_global) {
+				for (auto command : commands) {
+
+					int64_t old_seed = calc_seed;
+					calc_seed = solve_part(command, calc_seed);
+					if (old_seed != calc_seed) {
+						break;
+					}
+				}
+			}
+			if (calc_seed < returnValue) {
+				returnValue = calc_seed;
+			}
+		}
 	}
 
 	return returnValue;	
@@ -135,7 +170,7 @@ int main() {
 	std::cout << "2023 day05 solve part 1" << std::endl;
 	int64_t part1 = solve(data, false);
 	std::cout << "part1 : " << part1 << std::endl;
-	return 0;
+
 	std::cout << "2023 day05 solve part 2" << std::endl;
 	int64_t part2 = solve(data, true);
 	std::cout << "part2 : " << part2 << std::endl;

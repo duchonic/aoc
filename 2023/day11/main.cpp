@@ -51,8 +51,8 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 		map.push_back(row);
 	}
 
-	//const int64_t expansion = 1000000;
-	const int64_t expansion = 10000;
+	const int64_t expansion = 1000000;
+	//const int64_t expansion = 10000;
 
 	// expand the map with empty columns
 	for (int64_t col = 0; col < input.at(0).size(); col++) {

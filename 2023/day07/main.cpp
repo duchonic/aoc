@@ -29,7 +29,9 @@
 
 std::vector<std::pair<std::string, int>> sort_cards(std::vector<std::pair<std::string, int>> &cards) {
     std::sort(cards.begin(), cards.end(), [](std::pair<std::string, int> a, std::pair<std::string, int> b) {
-		std::array<char, 13> ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'};
+		//std::array<char, 13> ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'};
+		// part 2, Joker is the lowest card
+		std::array<char, 13> ranks = {'J', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'Q', 'K', 'A'};
 		for (int pos = 0; pos < 5; pos++) {
 			auto rankA = std::find(ranks.begin(), ranks.end(), a.first.at(pos));
 			auto rankB = std::find(ranks.begin(), ranks.end(), b.first.at(pos));
@@ -61,31 +63,39 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 	for (auto line : input) {
 		std::vector<std::string> parts;
 		split_str(line, ' ', parts);
-		std::cout << parts.at(0) << ':' << parts.at(1) << std::endl;
 
 		bool twoCards = false;
 		bool treeCards = false;
 		bool foundCard = false;
 
 		std::pair<std::string, int> card = {parts.at(0), std::stoi(parts.at(1))};
-		std::array<char, 13> ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'};
+		std::array<char, 13> ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'Q', 'K', 'A'};
+
+		std::string::difference_type jokers = std::count(parts.at(0).begin(), parts.at(0).end(), 'J');
 		for (auto rank : ranks) {
 			std::string::difference_type n = std::count(parts.at(0).begin(), parts.at(0).end(), rank);
 
 			if (n == 5) {
 				fiveOfaKind.push_back( card ); 
-				std::cout << "five of a kind" << std::endl;
 				foundCard = true;
 				break;
 			} else if (n == 4) {
-				fourOfaKind.push_back( card ); 
-				std::cout << "four of a kind" << std::endl;
+				if (jokers == 1) {
+					fiveOfaKind.push_back( card ); 
+				}	
+				else {
+					fourOfaKind.push_back( card ); 
+				}
 				foundCard = true;
 				break;
 			} else if (n == 3) {
 				if (twoCards) {
-					std::cout << "full house" << std::endl;
-					fullHouse.push_back( card ); 
+					if (jokers == 2 || jokers == 3) {
+						fiveOfaKind.push_back( card ); 
+					}
+					else {
+						fullHouse.push_back( card ); 
+					}
 					foundCard = true;
 					break;
 				} else {
@@ -93,13 +103,24 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 				}
 			} else if (n == 2) {
 				if (treeCards) {
-					std::cout << "full house" << std::endl;
-					fullHouse.push_back( card ); 
+					if (jokers == 2 || jokers == 3) {
+						fiveOfaKind.push_back( card ); 
+					}
+					else {
+						fullHouse.push_back( card ); 
+					}
 					foundCard = true;
 					break;
 				} else if (twoCards) {
-					std::cout << "two pairs" << std::endl;
-					twoPairs.push_back( card ); 
+					if (jokers == 1) {
+						fullHouse.push_back( card );
+					}
+					else if (jokers == 2) {
+						fourOfaKind.push_back( card );
+					}
+					else {
+						twoPairs.push_back( card );
+					}
 					foundCard = true;
 					break;
 				} else {
@@ -111,70 +132,88 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 			continue;
 		}
 		else if (twoCards) {
-			std::cout << "one pair" << std::endl;
-			onePair.push_back( card ); 
+			if (jokers == 1) {
+				treeOfaKind.push_back( card ); 
+			}
+			else if (jokers == 2) {
+				fourOfaKind.push_back( card ); 
+			}
+			else if (jokers == 3) {
+				fiveOfaKind.push_back( card ); 
+			}
+			else {
+				onePair.push_back( card ); 
+			}
 		} else if (treeCards) {
-			std::cout << "tree of a kind" << std::endl;
-			treeOfaKind.push_back( card ); 
+			if (jokers == 1) {
+				fourOfaKind.push_back( card ); 
+			}
+			else if (jokers == 2) {
+				fiveOfaKind.push_back( card ); 
+			}
+			else {
+				treeOfaKind.push_back( card ); 
+			}
 		} else {
-			std::cout << "high card" << std::endl;
-			highCard.push_back( card ); 
+			if (jokers == 1) {
+				onePair.push_back( card ); 
+			}
+			else if (jokers == 2) {
+				treeOfaKind.push_back( card ); 
+			}
+			else if (jokers == 3) {
+				fourOfaKind.push_back( card ); 
+			}
+			else if (jokers == 4) {
+				fiveOfaKind.push_back( card ); 
+			}
+			else if (jokers == 5) {
+				fiveOfaKind.push_back( card ); 
+			}
+			else {
+				highCard.push_back( card ); 
+			}
 		}
 	}
 
 	int rank_end = 1;
 	highCard = sort_cards(highCard);
-	std::cout << "high card" << std::endl;
 	for (auto high : highCard) {
-		std::cout << high.first << ' ' << high.second << ' ' << rank_end << std::endl;
 		returnValue += high.second * rank_end++;
 	}
 
 	onePair = sort_cards(onePair);
-	std::cout << "one pair" << std::endl;
 	for (auto pair : onePair) {
-		std::cout << pair.first << ' ' << pair.second << ' ' << rank_end << std::endl;
 		returnValue += pair.second * rank_end++;
 	}
 
 	twoPairs = sort_cards(twoPairs);
-	std::cout << "two pairs" << std::endl;
 	for (auto pair : twoPairs) {
-		std::cout << pair.first << ' ' << pair.second << std::endl;
 		returnValue += pair.second * rank_end++;
 	}
 
 	treeOfaKind = sort_cards(treeOfaKind);
-	std::cout << "tree of a kind" << std::endl;
 	for (auto tree : treeOfaKind) {
-		std::cout << tree.first << ' ' << tree.second << std::endl;
 		returnValue += tree.second * rank_end++;
 	}
 
 	fullHouse = sort_cards(fullHouse);
-	std::cout << "full house" << std::endl;
 	for (auto full : fullHouse) {
-		std::cout << full.first << std::endl;
 		returnValue += full.second * rank_end++;
 	}
 
 	fourOfaKind = sort_cards(fourOfaKind);
-	std::cout << "four of a kind" << std::endl;
 	for (auto four : fourOfaKind) {
-		std::cout << four.first << std::endl;
 		returnValue += four.second * rank_end++;
 	}
 
 	fiveOfaKind = sort_cards(fiveOfaKind);
-	std::cout << "five of a kind" << std::endl;
 	for (auto five : fiveOfaKind) {
-		std::cout << five.first << std::endl;
 		returnValue += five.second * rank_end++;
 	}
 
 	return returnValue;	
 }
-
 
 int main() {
 	std::vector<std::string> data = readstuff();

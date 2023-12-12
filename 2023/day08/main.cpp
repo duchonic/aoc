@@ -56,8 +56,11 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 		end = key;
 		dict[key] = value;
 	}
+	start = "AAA";
+	end = "ZZZ";
 
 	std::cout << "start: " << start << " end: " << end << std::endl;
+
 
 	while (start != end) {
 
@@ -69,6 +72,7 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 			}
 			returnValue++;
 		}
+		std::cout << "start: " << start << " end: " << end << std::endl;
 	}
 
 	return returnValue;	

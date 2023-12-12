@@ -61,4 +61,7 @@ jobs:
     - name : 2023_day08
       working-directory: ${{github.workspace}}/build
       run: ./2023/day08/day08 < ../2023/day08/data.txt
-      
+
+    - name : 2023_day11
+      working-directory: ${{github.workspace}}/build
+      run: ./2023/day11/day11 < ../2023/day11/data.txt 

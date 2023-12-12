@@ -11,6 +11,7 @@ add_subdirectory(2023/day05)
 add_subdirectory(2023/day06)
 add_subdirectory(2023/day07)
 add_subdirectory(2023/day08)
+add_subdirectory(2023/day11)
 
 add_executable(test 
   ../help/test/main.cpp 

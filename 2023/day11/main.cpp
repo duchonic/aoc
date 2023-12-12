@@ -51,12 +51,13 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 		map.push_back(row);
 	}
 
-	const int expansion = 1000000;
+	//const int64_t expansion = 1000000;
+	const int64_t expansion = 10000;
 
 	// expand the map with empty columns
-	for (int col = 0; col < input.at(0).size(); col++) {
+	for (int64_t col = 0; col < input.at(0).size(); col++) {
 		bool found = false;
-		for (int row = 0; row < input.size(); row++) {
+		for (int64_t row = 0; row < input.size(); row++) {
 			map.at(row).push_back(input.at(row).at(col));
 			if (input.at(row).at(col) == '#') {
 				found = true;
@@ -65,20 +66,21 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 		if (!found) {
 			//expand the row
 			if (DoPart2) {
-				for(int i = 1; i < expansion; i++) {
-					for (int row = 0; row < input.size(); row++) {
+				for(int64_t i = 1; i < expansion; i++) {
+					for (int64_t row = 0; row < input.size(); row++) {
 						map.at(row).push_back('.');
 					}
 				}
 			}
 			else {
-				for (int row = 0; row < input.size(); row++) {
+				for (int64_t row = 0; row < input.size(); row++) {
 					map.at(row).push_back('.');
 				}
 
 			}
 		}
 	}
+	std::cout << "expand the map with empty columns" << std::endl;
 
 	std::vector<std::vector<char>> expand_row;
 
@@ -92,7 +94,7 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 		}
 		if (!found) {
 			if (DoPart2) {
-				for(int i = 1; i < expansion; i++) {
+				for(int64_t i = 1; i < expansion; i++) {
 					expand_row.push_back(line);
 				}
 			}
@@ -103,28 +105,26 @@ static int64_t solve(std::vector<std::string> input, bool DoPart2) {
 		expand_row.push_back(line);
 	}
 
+	std::cout << "expand the map with empty rows" << std::endl;
+	std::cout << "size: " << expand_row.size() << " " << expand_row.at(0).size() << std::endl;
+
 	std::vector<std::pair<int, int>> points;
 
-	for (int col = 0; col < expand_row.at(0).size(); col++) {
-		for (int row = 0; row < expand_row.size(); row++) {
+	for (int64_t col = 0; col < expand_row.at(0).size(); col++) {
+		for (int64_t row = 0; row < expand_row.size(); row++) {
 			if (expand_row.at(row).at(col) == '#') {
 				points.push_back(std::pair<int, int>{col-2, row});
 			}
 		}
 	}
 
+	std::cout << "points: " << points.size() << std::endl;
+
 	for (auto source : points) {
 		for (auto destination: points) {
-			int distance = std::abs(source.first - destination.first) + std::abs(source.second - destination.second);
+			int64_t distance = std::abs(source.first - destination.first) + std::abs(source.second - destination.second);
 			returnValue += distance;
 		}
-	}
-
-	for (auto line : expand_row) {
-		for (auto c : line) {
-			std::cout << c;
-		}
-		std::cout << std::endl;
 	}
 
 	return returnValue/2;	

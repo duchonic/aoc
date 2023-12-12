@@ -24,14 +24,153 @@
 #include "help/log.h"
 #include "help/plot.h"
 
+#include <algorithm>
+
+
+std::vector<std::pair<std::string, int>> sort_cards(std::vector<std::pair<std::string, int>> &cards) {
+    std::sort(cards.begin(), cards.end(), [](std::pair<std::string, int> a, std::pair<std::string, int> b) {
+		std::array<char, 13> ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'};
+		for (int pos = 0; pos < 5; pos++) {
+			auto rankA = std::find(ranks.begin(), ranks.end(), a.first.at(pos));
+			auto rankB = std::find(ranks.begin(), ranks.end(), b.first.at(pos));
+			if (rankA < rankB) {
+				return true;
+			} else if (rankA > rankB) {
+				return false;
+			}
+		}
+		return false;
+	});
+	return cards;
+}
 
 /**
  * @brief solves the problem
  */
 static int64_t solve(std::vector<std::string> input, bool DoPart2) {
-	int64_t returnValue = 1;
+	int64_t returnValue = 0;
 
+	std::vector<std::pair<std::string, int>> fiveOfaKind;
+	std::vector<std::pair<std::string, int>> fourOfaKind;
+	std::vector<std::pair<std::string, int>> fullHouse;
+	std::vector<std::pair<std::string, int>> treeOfaKind;
+	std::vector<std::pair<std::string, int>> twoPairs;
+	std::vector<std::pair<std::string, int>> onePair;
+	std::vector<std::pair<std::string, int>> highCard;
 
+	for (auto line : input) {
+		std::vector<std::string> parts;
+		split_str(line, ' ', parts);
+		std::cout << parts.at(0) << ':' << parts.at(1) << std::endl;
+
+		bool twoCards = false;
+		bool treeCards = false;
+		bool foundCard = false;
+
+		std::pair<std::string, int> card = {parts.at(0), std::stoi(parts.at(1))};
+		std::array<char, 13> ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'};
+		for (auto rank : ranks) {
+			std::string::difference_type n = std::count(parts.at(0).begin(), parts.at(0).end(), rank);
+
+			if (n == 5) {
+				fiveOfaKind.push_back( card ); 
+				std::cout << "five of a kind" << std::endl;
+				foundCard = true;
+				break;
+			} else if (n == 4) {
+				fourOfaKind.push_back( card ); 
+				std::cout << "four of a kind" << std::endl;
+				foundCard = true;
+				break;
+			} else if (n == 3) {
+				if (twoCards) {
+					std::cout << "full house" << std::endl;
+					fullHouse.push_back( card ); 
+					foundCard = true;
+					break;
+				} else {
+					treeCards = true; 
+				}
+			} else if (n == 2) {
+				if (treeCards) {
+					std::cout << "full house" << std::endl;
+					fullHouse.push_back( card ); 
+					foundCard = true;
+					break;
+				} else if (twoCards) {
+					std::cout << "two pairs" << std::endl;
+					twoPairs.push_back( card ); 
+					foundCard = true;
+					break;
+				} else {
+					twoCards = true;
+				}
+			}
+		}
+		if (foundCard) {
+			continue;
+		}
+		else if (twoCards) {
+			std::cout << "one pair" << std::endl;
+			onePair.push_back( card ); 
+		} else if (treeCards) {
+			std::cout << "tree of a kind" << std::endl;
+			treeOfaKind.push_back( card ); 
+		} else {
+			std::cout << "high card" << std::endl;
+			highCard.push_back( card ); 
+		}
+	}
+
+	int rank_end = 1;
+	highCard = sort_cards(highCard);
+	std::cout << "high card" << std::endl;
+	for (auto high : highCard) {
+		std::cout << high.first << ' ' << high.second << ' ' << rank_end << std::endl;
+		returnValue += high.second * rank_end++;
+	}
+
+	onePair = sort_cards(onePair);
+	std::cout << "one pair" << std::endl;
+	for (auto pair : onePair) {
+		std::cout << pair.first << ' ' << pair.second << ' ' << rank_end << std::endl;
+		returnValue += pair.second * rank_end++;
+	}
+
+	twoPairs = sort_cards(twoPairs);
+	std::cout << "two pairs" << std::endl;
+	for (auto pair : twoPairs) {
+		std::cout << pair.first << ' ' << pair.second << std::endl;
+		returnValue += pair.second * rank_end++;
+	}
+
+	treeOfaKind = sort_cards(treeOfaKind);
+	std::cout << "tree of a kind" << std::endl;
+	for (auto tree : treeOfaKind) {
+		std::cout << tree.first << ' ' << tree.second << std::endl;
+		returnValue += tree.second * rank_end++;
+	}
+
+	fullHouse = sort_cards(fullHouse);
+	std::cout << "full house" << std::endl;
+	for (auto full : fullHouse) {
+		std::cout << full.first << std::endl;
+		returnValue += full.second * rank_end++;
+	}
+
+	fourOfaKind = sort_cards(fourOfaKind);
+	std::cout << "four of a kind" << std::endl;
+	for (auto four : fourOfaKind) {
+		std::cout << four.first << std::endl;
+		returnValue += four.second * rank_end++;
+	}
+
+	fiveOfaKind = sort_cards(fiveOfaKind);
+	std::cout << "five of a kind" << std::endl;
+	for (auto five : fiveOfaKind) {
+		std::cout << five.first << std::endl;
+		returnValue += five.second * rank_end++;
+	}
 
 	return returnValue;	
 }
@@ -42,6 +181,7 @@ int main() {
 	std::cout << "2023 day05 solve part 1" << std::endl;
 	int64_t part1 = solve(data, false);
 	std::cout << "part1 : " << part1 << std::endl;
+	return 0;
 
 	std::cout << "2023 day05 solve part 2" << std::endl;
 	int64_t part2 = solve(data, true);

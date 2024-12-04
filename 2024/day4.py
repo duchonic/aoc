@@ -9,7 +9,7 @@ def read_file():
     
     map = []
 
-    with open('day4_test.txt') as file:
+    with open('day4.txt') as file:
         lines = file.readlines()
         for line in lines:
             map.append(line.strip())

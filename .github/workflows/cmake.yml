@@ -1,67 +1,22 @@
-name: CMake
+name: Python Script Workflow
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-env:
-  BUILD_TYPE: Release
+    branches:
+      - main
 
 jobs:
-  build:
+  run-python-script:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-
-    - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      - name: Set up Python
+        uses: actions/setup-python@v5 
+        with:
+          python-version: '3.10'
       
-    - name: Test
-      working-directory: ${{github.workspace}}/build
-      run: ./test -s -r compact -d yes
-      
-    - name: Test_median
-      working-directory: ${{github.workspace}}/build
-      run: ./test -c median
- 
-    - name: 2023_day01
-      working-directory: ${{github.workspace}}/build
-      run: ./2023/day01/day01 < ../2023/day01/data.txt
-    
-    - name : 2023_day02
-      working-directory: ${{github.workspace}}/build
-      run: ./2023/day02/day02 < ../2023/day02/data.txt
-  
-    - name: 2023_day03
-      working-directory: ${{github.workspace}}/build
-      run: ./2023/day03/day03 < ../2023/day03/data.txt
-    
-    - name : 2023_day04
-      working-directory: ${{github.workspace}}/build
-      run: ./2023/day04/day04 < ../2023/day04/data.txt
-     
-    - name : 2023_day05
-      working-directory: ${{github.workspace}}/build
-      run: ./2023/day05/day05 < ../2023/day05/data.txt
-      
-    - name : 2023_day06
-      working-directory: ${{github.workspace}}/build
-      run: ./2023/day06/day06 < ../2023/day06/data.txt
-
-    - name : 2023_day07
-      working-directory: ${{github.workspace}}/build
-      run: ./2023/day07/day07 < ../2023/day07/data.txt
-
-    - name : 2023_day08
-      working-directory: ${{github.workspace}}/build
-      run: ./2023/day08/day08 < ../2023/day08/data.txt
-
-    - name : 2023_day11
-      working-directory: ${{github.workspace}}/build
-      run: ./2023/day11/day11 < ../2023/day11/data.txt 
+      - name: Run Python script
+        run: python 2024/day5.py

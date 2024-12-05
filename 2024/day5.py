@@ -87,11 +87,11 @@ def read_file(file, part):
     return result 
 
 def main():
-    assert(read_file("day5_test.txt", 1) == 143)
-    print("part1: ", read_file("day5.txt", 1))
+    assert(read_file("2024/day5_test.txt", 1) == 143)
+    print("part1: ", read_file("2024/day5.txt", 1))
 
-    assert(read_file("day5_test.txt", 2) == 123)
-    print("part2: ", read_file("day5.txt", 2))
+    assert(read_file("2024/day5_test.txt", 2) == 123)
+    print("part2: ", read_file("2024/day5.txt", 2))
 
 if __name__ == '__main__':
     main()
